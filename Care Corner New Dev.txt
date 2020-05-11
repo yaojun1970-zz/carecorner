@@ -1,0 +1,15 @@
+1. Bulk volunteer registration. 
+- Use existing structure Account/Contact. 
+- Template of data format. 
+
+2. Corporate contacts
+- register as individual volunteer and linked to the corporate account. 
+- 
+
+3. Virtual Center
+- Tag centers to location (Woodlands, Toa Payoh), custom field Town__c
+- Export Center data for Teresa to specify Town. 
+
+
+Lead Source - Volunteer Center
+Attendance - add VC Name, Town

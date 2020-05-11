@@ -1,0 +1,2222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    
+    <title>carecorner | Family and Community Services</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+<!-- Enhancement of Opportunity Page -->
+<script type="text/javascript" src="./SFDC_files/FormValidationScript.js"></script>
+<!-- Opportunity Scripts -->
+<script type="text/javascript" src="./SFDC_files/multi-select/src/jquery.js"></script>
+<script type="text/javascript" src="./SFDC_files/multi-select/src/imtech_pager.js"></script>
+<link href="./SFDC_files/multi-select/css/multi-select.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="./SFDC_files/multi-select/js/jquery.multi-select.js"></script>
+<!-- Dependent Selector -->
+<script type="text/javascript" src="./SFDC_files/jquery.chained.js"></script>
+
+<!-- JQuery Datepicker -->
+<link href="./SFDC_files/datepicker/jquery-ui.css" rel="stylesheet" />
+<script type="text/javascript" src="./SFDC_files/datepicker/jquery-ui.js"></script>
+
+<script type="text/javascript">
+var multiStr;
+var baseUrl = "https://vcesandbox-carecorner.cs6.force.com";
+$(window).bind("load", function() {
+	$(document).ready(function()
+	{
+		$.getJSON(baseUrl+"/services/apexrest/RoleChoices", function(data)
+	   	{
+	   		
+	   		var jsonData = $.parseJSON(data);
+	   		// getting role choices
+	   		var v = jsonData['Roles'];
+	   		var param = false;
+	   		var role = getParameter('vrole');
+			if (role != null && role != '') {
+				$("#00N6F00000EgS7a").append("<option value=\""+role+"\">"+role+"</option>");
+				$("#00N6F00000EgS7a").val(role);
+				param = true;
+			}
+	   		if(!param) {
+	   			$("#00N6F00000EgS7a").append("<option value="+"--None--"+">"+"--None--"+"</option>");
+	   		}
+	   		$.each(v,function(k,val) {		        
+				if (!param) {					
+	        		$("#00N6F00000EgS7a").append("<option value=\""+val+"\">"+val+"</option>");
+	        	}
+				$("#00N6F00000EgS7b").append("<option value=\""+val+"\">"+val+"</option>");
+				$("#00N6F00000EgS7c").append("<option value=\""+val+"\">"+val+"</option>");				
+	        });
+	        
+	        // getting citizenship
+	        var ct = jsonData['Citizen'];
+	        $.each(ct,function(k,val) {		        
+				$("#00N6F00000EgS5n").append("<option value=\""+val+"\">"+val+"</option>");
+	        });	        
+	        
+	        // getting commitment level
+	        var cl = jsonData['Commitment'];
+	        $.each(cl,function(k,val) {		        
+				$("#00N6F00000EgS5o").append("<option value=\""+val+"\">"+val+"</option>");
+	        });	
+	        
+	    });
+	});
+	
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $('.open').click(function(){
+    
+       $('.skillDetails').slideToggle('slow');
+       if($(this).text() == '[-] Hide Language / Skill Details')
+       {
+           $(this).html('<a style="cursor: pointer;"><strong>[+] Show Language / Skill Details</strong></a>');
+       }
+       else
+       {
+           $(this).html('<a style="cursor: pointer;"><strong>[-] Hide Language / Skill Details</strong></a>');
+       }
+     });
+});
+</script>
+<script>
+function getParameter(theParameter) { 
+  var params = window.location.search.substr(1).split('&');
+ 
+  for (var i = 0; i < params.length; i++) {
+    var p=params[i].split('=');
+	if (p[0] == theParameter) {
+	  return decodeURIComponent(p[1]);
+	}
+  }
+  return false;
+}
+</script>
+<script>
+function setCompnayValue() { 
+	document.getElementById("company").value = document.getElementById("last_name").value;
+}
+</script>
+<script>
+// Get the modal
+function showModal() {
+	var modal = document.getElementById('myModal');
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	
+	// open the modal	
+	modal.style.display = "block";
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+	
+}
+</script>
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+        
+      .footer {
+  		position: relative;
+  		bottom: 0;
+  		width: 100%;
+  		
+		}
+		
+		.custom-control-label {
+			font-size: 14px;
+		}
+		.text-label {
+			font-size: 14px;
+		}
+		.header-label {
+			font-size: 14px;
+			font-weight:bold;
+		}
+		.text-top-label {
+			font-size: 12px;
+		}
+		.txfooter {
+			font-size: 12px;
+		}
+		.red {
+			color:red;
+			font-size: 14px;
+		}
+      }
+</style>
+
+
+
+  </head>
+  <body>
+  <div class="container">
+  <div class="py-2 text-left">	
+  </div>
+  
+<div class="row">
+  	<div class="col-md-12 order-md-1">
+  	
+  	<form onsubmit="return validateGenericForm(this);" method="POST" action="https://test.salesforce.com/servlet/servlet.WebToLead??encoding=UTF-8" id="theForm">
+        <input type="hidden" value="00DN0000000FMm3" name="oid" /> 
+      	<input type="hidden" value="http://carevolunteers.000webhostapp.com/volunteer_registration_thank_you.html" name="retURL" /> 
+      	<input type="hidden" value="Volunteer Center" name="lead_source" id="lead_source" /> 
+        <input type="hidden" size="20" name="company" maxlength="80" id="company" />    
+    
+    	<div class="row">
+    		<div class="col-md-8 mb-1">
+    			<h2><font color="red">VOLUNTEER REGISTRATION</font></h2> 
+    		</div>
+    		<div class="col-md-3 mb-1">
+    			<h5  style="right:10px; position: relative;float:right"><img src="./SFDC_Files/Logo.jpg" height="80" width="80"/></h5>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="lead">Thank you for your interest to bless our beneficiaries through volunteering.</label>
+    		</div>
+    	</div>
+    	
+    	<div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="text-label">This form allows us to get better acquainted with you so as to</label>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-12 mb-1">
+    			<ol type="i" class="text-label" style="padding-top:5px">
+  					<li >match you to a meaningful volunteer role, help us</li>
+  					<li >maintain your volunteering relationship with us, </li>
+  					<li >process your application and (iv) stay in contact with you.</li>
+				</ul>
+    		</div>
+    	</div>
+      
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">1st Choice Role:</label>
+          </div>
+          <div class="col-md-6 mb-1">
+            <select class="oppSearch form-control form-control-sm" id="00N6F00000EgS7a" name="00N6F00000EgS7a" title="1st Choice Role">
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">2nd Choice Role:</label>
+          </div>
+          <div class="col-md-6 mb-1">
+            <select class="oppSearch form-control form-control-sm" id="00N6F00000EgS7b" name="00N6F00000EgS7b" title="2nd Choice Role">
+            	<option value="">--None--</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">3rd Choice Role:</label>
+          </div>
+          <div class="col-md-6 mb-1">
+            <select class="oppSearch form-control form-control-sm" id="00N6F00000EgS7c" name="00N6F00000EgS7c" title="3rd Choice Role">
+            	<option value="">--None--</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+        
+        <div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="lead">Personal Details</label>
+    		</div>
+    	</div>
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Salutation:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <select class="oppSearch form-control form-control-sm" id="salutation" name="salutation" title="salutation">
+            	<option value="">--None--</option>
+                <option value="Mr.">Mr.</option>
+                <option value="Mrs.">Mrs.</option>
+                <option value="Ms.">Ms.</option>
+                <option value="Mdm">Mdm</option>
+                <option value="Miss">Miss</option>
+                <option value="Dr.">Dr.</option>
+                <option value="Prof.">Prof.</option>
+                <option value="Rev">Rev</option>
+                <option value="Pastor">Pastor</option>
+                <option value="Judge">Judge</option>
+                <option value="Datuk">Datuk</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Full Name:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="last_name" name="last_name"/>
+            <div style="color:red" id="last_nameError"></div>
+          </div>          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Preferred Name:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS6o" name="00N6F00000EgS6o"/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Gender:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <select title="Gender" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6M" id="00N6F00000EgS6M">
+            	<option value="">--None--</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+          </div>          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Date of Birth:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <span class="dateInput dateOnlyInput">
+            	<input type="text" class="oppSearch form-control form-control-sm"  name="00N6F00000EgS5w" id="00N6F00000EgS5w" />
+            	<div style="color:red" id="00N6F00000EgS5wError"></div>
+            </span>
+            <script>
+				$( "#00N6F00000EgS5w" ).datepicker({
+											changeMonth: true,
+											changeYear: true,
+											yearRange: '1920:'+(new Date).getFullYear()
+										});
+				</script>
+          </div>
+        </div>
+        
+        <div class="row">          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >NRIC/FIN No. (Optional):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS6a" name="00N6F00000EgS6a"/>
+          </div>
+        </div>
+		
+		<div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Citizenship:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <select title="Citizenship" class="oppSearch form-control form-control-sm" name="00N6F00000EgS5n" id="00N6F00000EgS5n">
+            	<option value="">--None--</option>
+            </select>
+            <div style="color:red" id="00N6F00000EgS5nError"></div>
+          </div>          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >(if Others):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS5m" name="00N6F00000EgS5m"/>
+          </div>
+        </div>
+		
+		<div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Marital Status:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <select class="oppSearch form-control form-control-sm" id="00N6F00000EgS6V" name="00N6F00000EgS6V" title="Marital Status">
+            	<option value="">--None--</option>
+            	<option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Separated">Separated</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Cohabiting">Cohabiting</option>
+                <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+		
+		<div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Email:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="email" name="email"/>
+            <div style="color:red" id="emailError"></div>
+          </div>
+        </div>
+		
+		<div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Address:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <textarea rows="3" class="oppSearch form-control rounded-0" id="street" name="street"></textarea>
+            <div style="color:red" id="streetError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Postal Code:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="20" class="oppSearch form-control" id="zip" name="zip"/>
+          </div>
+        </div>
+		
+		<div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Contact Number (Preferred):<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="40" class="oppSearch form-control" id="00N6F00000EgS6j" name="00N6F00000EgS6j"/>
+            <div style="color:red" id="00N6F00000EgS6jError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Contact Number (Other):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="40" class="oppSearch form-control" id="00N6F00000EgS6d" name="00N6F00000EgS6d"/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Race:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <select title="Race" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6q" id="00N6F00000EgS6q">
+            	<option value="">--None--</option>
+            	<option value="Chinese">Chinese</option>
+                <option value="Malay">Malay</option>
+                <option value="Indian">Indian</option>
+                <option value="Other">Other</option>
+            </select>
+          </div>          
+          <div class="col-md-2 mb-1">
+            <label class="text-label">(if Others):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="32" class="oppSearch form-control" id="00N6F00000EgS6r" name="00N6F00000EgS6r"/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Religion:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <select title="Religion" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6u" id="00N6F00000EgS6u">
+            	<option value="">--None--</option>
+            	<option value="No Religion">No Religion</option>
+                <option value="Christianity">Christianity</option>
+                <option value="Buddhism">Buddhism</option>
+                <option value="Islam">Islam</option>
+                <option value="Hinduism">Hinduism</option>
+                <option value="Sikhism">Sikhism</option>
+                <option value="Other">Other</option>
+            </select>
+          </div>          
+          <div class="col-md-2 mb-1">
+            <label class="text-label">(if Others):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="40" class="oppSearch form-control" id="00N6F00000EgS6e" name="00N6F00000EgS6e"/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Designation:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="100" class="oppSearch form-control" id="00N6F00000EgS5y" name="00N6F00000EgS5y"/>
+          </div>          
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Employer / School:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="100" class="oppSearch form-control" id="00N6F00000EgS62" name="00N6F00000EgS62"/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Highest Education Qualification:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <select title="Highest Education Qualification" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6O" id="00N6F00000EgS6O">
+            	<option value="">--None--</option>
+            	<option value="PSLE">PSLE</option>
+                <option value="O Level">O Level</option>
+                <option value="A Level">A Level</option>
+                <option value="Diploma">Diploma</option>
+                <option value="Degree">Degree</option>
+                <option value="Higher Degree">Higher Degree</option>
+                <option value="Other">Other</option>
+                <option value="No Formal Education">No Formal Education</option>
+            </select>
+          </div>          
+          <div class="col-md-2 mb-1">
+            <label class="text-label">(if Others):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS6N" name="00N6F00000EgS6N"/>
+          </div>
+        </div>
+        
+        <div class="row">          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Course of Study:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS5t" name="00N6F00000EgS5t"/>
+          </div>
+        </div>
+        <hr>
+        <!-- End of Personal Details -->
+        
+        <div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="lead">Language and Skills</label>
+    		</div>
+    	</div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Language Spoken:</label>
+          </div>
+          <div class="col-md-8 mb-1">
+            <select title="Language Spoken" multiple="multiple" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6S" id="00N6F00000EgS6S">
+            	<option value="English">English</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Malay">Malay</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Hokkien">Hokkien</option>
+                <option value="Teochew">Teochew</option>
+                <option value="Cantonese">Cantonese</option>
+                <option value="Other">Others</option>
+            </select>
+            <script>
+					$('#00N6F00000EgS6S').multiSelect({ keepOrder: true });
+			</script>
+          </div> 
+        </div>
+        
+        <div class="row">          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Language Spoken (Other):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS6R" name="00N6F00000EgS6R"/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Language Proficiency (Spoken):</label>
+          </div>
+          <div class="col-md-8 mb-1">
+            <select title="Language Proficiency (Spoken)" multiple="multiple" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6P" id="00N6F00000EgS6P">
+            	<option value="English : Basic">English : Basic</option>
+            	<option value="English : Good">English : Good</option>
+            	<option value="English : Fluent">English : Fluent</option>
+                <option value="Mandarin : Basic">Mandarin : Basic</option>
+            	<option value="Mandarin : Good">Mandarin : Good</option>
+            	<option value="Mandarin : Fluent">Mandarin : Fluent</option>
+            	<option value="Malay : Basic">Malay : Basic</option>
+            	<option value="Malay : Good">Malay : Good</option>
+            	<option value="Malay : Fluent">Malay : Fluent</option>
+            	<option value="Tamil : Basic">Tamil : Basic</option>
+            	<option value="Tamil : Good">Tamil : Good</option>
+            	<option value="Tamil : Fluent">Tamil : Fluent</option>
+            	<option value="Hindi : Basic">Hindi : Basic</option>
+            	<option value="Hindi : Good">Hindi : Good</option>
+            	<option value="Hindi : Fluent">Hindi : Fluent</option>
+            	<option value="Hokkien : Basic">Hokkien : Basic</option>
+            	<option value="Hokkien : Good">Hokkien : Good</option>
+            	<option value="Hokkien : Fluent">Hokkien : Fluent</option>
+            	<option value="Teochew : Basic">Teochew : Basic</option>
+            	<option value="Teochew : Good">Teochew : Good</option>
+            	<option value="Teochew : Fluent">Teochew : Fluent</option>
+            	<option value="Cantonese : Basic">Cantonese : Basic</option>
+            	<option value="Cantonese : Good">Cantonese : Good</option>
+            	<option value="Cantonese : Fluent">Cantonese : Fluent</option>
+            </select>
+            <script>
+					$('#00N6F00000EgS6P').multiSelect({ keepOrder: true });
+			</script>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Language Written:</label>
+          </div>
+          <div class="col-md-8 mb-1">
+            <select title="Language Written" multiple="multiple" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6U" id="00N6F00000EgS6U">
+            	<option value="English">English</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Malay">Malay</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Hokkien">Hokkien</option>
+                <option value="Teochew">Teochew</option>
+                <option value="Cantonese">Cantonese</option>
+                <option value="Other">Others</option>
+            </select>
+            <script>
+					$('#00N6F00000EgS6U').multiSelect({ keepOrder: true });
+			</script>
+          </div> 
+        </div>
+        
+        <div class="row">          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Language Written (Other):</label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS6T" name="00N6F00000EgS6T"/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Language Proficiency (Written):</label>
+          </div>
+          <div class="col-md-8 mb-1">
+            <select title="Language Proficiency (Written)" multiple="multiple" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6Q" id="00N6F00000EgS6Q">
+            	<option value="English : Basic">English : Basic</option>
+            	<option value="English : Good">English : Good</option>
+            	<option value="English : Fluent">English : Fluent</option>
+                <option value="Mandarin : Basic">Mandarin : Basic</option>
+            	<option value="Mandarin : Good">Mandarin : Good</option>
+            	<option value="Mandarin : Fluent">Mandarin : Fluent</option>
+            	<option value="Malay : Basic">Malay : Basic</option>
+            	<option value="Malay : Good">Malay : Good</option>
+            	<option value="Malay : Fluent">Malay : Fluent</option>
+            	<option value="Tamil : Basic">Tamil : Basic</option>
+            	<option value="Tamil : Good">Tamil : Good</option>
+            	<option value="Tamil : Fluent">Tamil : Fluent</option>
+            	<option value="Hindi : Basic">Hindi : Basic</option>
+            	<option value="Hindi : Good">Hindi : Good</option>
+            	<option value="Hindi : Fluent">Hindi : Fluent</option>
+            	<option value="Hokkien : Basic">Hokkien : Basic</option>
+            	<option value="Hokkien : Good">Hokkien : Good</option>
+            	<option value="Hokkien : Fluent">Hokkien : Fluent</option>
+            	<option value="Teochew : Basic">Teochew : Basic</option>
+            	<option value="Teochew : Good">Teochew : Good</option>
+            	<option value="Teochew : Fluent">Teochew : Fluent</option>
+            	<option value="Cantonese : Basic">Cantonese : Basic</option>
+            	<option value="Cantonese : Good">Cantonese : Good</option>
+            	<option value="Cantonese : Fluent">Cantonese : Fluent</option>
+            </select>
+            <script>
+					$('#00N6F00000EgS6Q').multiSelect({ keepOrder: true });
+			</script>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">My Skill #1:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Category</label></div>
+            <select title="Skill #1 Category" class="oppSearch form-control form-control-sm" name="00N6F00000EgS74" id="00N6F00000EgS74">
+            	<option value="">--None--</option>
+            	<option value="Art &amp; Craft">Art &amp; Craft</option>
+                <option value="Health &amp; Fitness">Health &amp; Fitness</option>
+                <option value="Hobbies &amp; Lifestyle">Hobbies &amp; Lifestyle</option>
+                <option value="Information technology">Information Technology</option>
+                <option value="Life Skills">Life Skills</option>
+                <option value="Media &amp; Communications">Media &amp; Communications</option>
+                <option value="Music">Music</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Performing Arts (backend)">Performing Arts (backend)</option>
+                <option value="Professional Skills">Professional Skills</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Skill</label></div>
+          	<select title="Skill #1 Skill" class="oppSearch form-control form-control-sm" name="00N6F00000EgS70" id="00N6F00000EgS70">
+				<option value="">--None--</option>
+                <option value="Caligraphy" class="Art &amp; Craft">Caligraphy</option>
+                <option value="Ceramics / Pottery / Clay" class="Art &amp; Craft">Ceramics / Pottery / Clay</option>
+                <option value="Craftwork" class="Art &amp; Craft">Craftwork</option>
+                <option value="Cross-stitching" class="Art &amp; Craft">Cross-stitching</option>
+                <option value="Drawing / Sketching / Painting" class="Art &amp; Craft">Drawing / Sketching / Painting</option>
+                <option value="Fabric Painting" class="Art &amp; Craft">Fabric Painting</option>
+                <option value="Floral Arrangements" class="Art &amp; Craft">Floral Arrangements</option>
+                <option value="Gift Wrapping" class="Art &amp; Craft">Gift Wrapping</option>
+                <option value="Jewellery Making" class="Art &amp; Craft">Jewellery Making</option>
+                <option value="Knitting" class="Art &amp; Craft">Knitting</option>
+                <option value="Painting" class="Art &amp; Craft">Painting</option>
+                <option value="Quilting" class="Art &amp; Craft">Quilting</option>
+                <option value="Scrapbooking" class="Art &amp; Craft">Scrapbooking</option>
+                <option value="Sewing / Tailoring" class="Art &amp; Craft">Sewing / Tailoring</option>
+                <option value="Woodwork" class="Art &amp; Craft">Woodwork</option>
+                <option value="Adventure Learning &amp; Teambuilding" class="Health &amp; Fitness">Adventure Learning &amp; Teambuilding</option>
+                <option value="Aerobics" class="Health &amp; Fitness">Aerobics</option>
+                <option value="Archery" class="Health &amp; Fitness">Archery</option>
+                <option value="Badminton" class="Health &amp; Fitness">Badminton</option>
+                <option value="Basketball" class="Health &amp; Fitness">Basketball</option>
+                <option value="Bowling" class="Health &amp; Fitness">Bowling</option>
+                <option value="Boxercise" class="Health &amp; Fitness">Boxercise</option>
+                <option value="Canoeing / Kayaking" class="Health &amp; Fitness">Canoeing / Kayaking</option>
+                <option value="Cheerleading" class="Health &amp; Fitness">Cheerleading</option>
+                <option value="Cricket" class="Health &amp; Fitness">Cricket</option>
+                <option value="Cue Sports e.g. Snooker / Billards" class="Health &amp; Fitness">Cue Sports e.g. Snooker / Billards</option>
+                <option value="Cycling / Biking" class="Health &amp; Fitness">Cycling / Biking</option>
+                <option value="Dragonboat" class="Health &amp; Fitness">Dragonboat</option>
+                <option value="Fencing" class="Health &amp; Fitness">Fencing</option>
+                <option value="Floorball" class="Health &amp; Fitness">Floorball</option>
+                <option value="Frisbee &amp; Ultimate Frisbee" class="Health &amp; Fitness">Frisbee &amp; Ultimate Frisbee</option>
+                <option value="Golf" class="Health &amp; Fitness">Golf</option>
+                <option value="Ice Skating" class="Health &amp; Fitness">Ice Skating</option>
+                <option value="Kickboxing" class="Health &amp; Fitness">Kickboxing</option>
+                <option value="Netball" class="Health &amp; Fitness">Netball</option>
+                <option value="Pilates" class="Health &amp; Fitness">Pilates</option>
+                <option value="Rock Climbing &amp; Mountaineering" class="Health &amp; Fitness">Rock Climbing &amp; Mountaineering</option>
+                <option value="Rope Skipping" class="Health &amp; Fitness">Rope Skipping</option>
+                <option value="Rugby / Tough Rugby" class="Health &amp; Fitness">Rugby / Tough Rugby</option>
+                <option value="Running" class="Health &amp; Fitness">Running</option>
+                <option value="Sailing / Windsurfing / Wakeboarding" class="Health &amp; Fitness">Sailing / Windsurfing / Wakeboarding</option>
+                <option value="Shooting" class="Health &amp; Fitness">Shooting</option>
+                <option value="Soccer / Football" class="Health &amp; Fitness">Soccer / Football</option>
+                <option value="Softball" class="Health &amp; Fitness">Softball</option>
+                <option value="Squash" class="Health &amp; Fitness">Squash</option>
+                <option value="Swimming" class="Health &amp; Fitness">Swimming</option>
+                <option value="Table Tennis" class="Health &amp; Fitness">Table Tennis</option>
+                <option value="Tchoukball" class="Health &amp; Fitness">Tchoukball</option>
+				<option value="Tennis" class="Health &amp; Fitness">Tennis</option>
+                <option value="Traditional Chinese Medicine" class="Health &amp; Fitness">Traditional Chinese Medicine</option>
+                <option value="Volleyball &amp; Beach Volleyball" class="Health &amp; Fitness">Volleyball &amp; Beach Volleyball</option>
+                <option value="Water Polo" class="Health &amp; Fitness">Water Polo</option>
+                <option value="Zumba" class="Health &amp; Fitness">Zumba</option>
+                <option value="Astronomy" class="Hobbies &amp; Lifestyle">Astronomy</option>
+                <option value="Baking" class="Hobbies &amp; Lifestyle">Baking</option>
+                <option value="Cooking" class="Hobbies &amp; Lifestyle">Cooking</option>
+                <option value="Cosplay" class="Hobbies &amp; Lifestyle">Cosplay</option>
+                <option value="Face Painting" class="Hobbies &amp; Lifestyle">Face Painting</option>
+                <option value="Fishing" class="Hobbies &amp; Lifestyle">Fishing</option>
+                <option value="Gardening / Horticulture" class="Hobbies &amp; Lifestyle">Gardening / Horticulture</option>
+                <option value="Intellectural &amp; Recreational Gaming e.g. Board Games, Chess" class="Hobbies &amp; Lifestyle">Intellectural &amp; Recreational Gaming</option>
+                <option value="Origami" class="Hobbies &amp; Lifestyle">Origami</option>
+                <option value="Storytelling" class="Hobbies &amp; Lifestyle">Storytelling</option>
+                <option value="Upcycling" class="Hobbies &amp; Lifestyle">Upcycling</option>
+                <option value="Wine Appreciation" class="Hobbies &amp; Lifestyle">Wine Appreciation</option>
+                <option value="Yoyo" class="Hobbies &amp; Lifestyle">Yoyo</option>
+                <option value="Applications Development" class="Information technology">Applications Development</option>
+                <option value="Data Science" class="Information technology">Data Science</option>
+                <option value="Database Administration" class="Information technology">Database Administration</option>
+                <option value="Hardware" class="Information technology">Hardware</option>
+                <option value="Hardware Maintenance" class="Information technology">Hardware Maintenance</option>
+                <option value="Microsoft Office" class="Information technology">Microsoft Office</option>
+                <option value="Networking" class="Information technology">Networking</option>
+                <option value="Programming" class="Information technology">Programming</option>
+                <option value="Social Media" class="Information technology">Social Media</option>
+                <option value="Website Development &amp; Design" class="Information technology">Website Development &amp; Design</option>
+                <option value="Administration &amp; Coordination" class="Life Skills">Administration &amp; Coordination</option>
+                <option value="Driving" class="Life Skills">Driving</option>
+                <option value="Facilitation" class="Life Skills">Facilitation</option>
+                <option value="Hairdressing" class="Life Skills">Hairdressing</option>
+                <option value="Housekeeping" class="Life Skills">Housekeeping</option>
+                <option value="Presentation / Public Speaking / Debate" class="Life Skills">Presentation / Public Speaking / Debate</option>
+                <option value="Proposal Writing" class="Life Skills">Proposal Writing</option>
+                <option value="Record Keeping" class="Life Skills">Record Keeping</option>
+                <option value="Sign Language" class="Life Skills">Sign Language</option>
+                <option value="Animation" class="Media &amp; Communications">Animation</option>
+                <option value="Comic Drawing" class="Media &amp; Communications">Comic Drawing</option>
+                <option value="Editorial / Writing / Journalism" class="Media &amp; Communications">Editorial / Writing / Journalism</option>
+                <option value="Graphics Design" class="Media &amp; Communications">Graphics Design</option>
+                <option value="Photography" class="Media &amp; Communications">Photography</option>
+                <option value="Translation (Verbal)" class="Media &amp; Communications">Translation (Verbal)</option>
+                <option value="Translation (Written)" class="Media &amp; Communications">Translation (Written)</option>
+                <option value="Video Production / Editing" class="Media &amp; Communications">Video Production / Editing</option>
+                <option value="A Cappella" class="Music">A Cappella</option>
+                <option value="Accordion" class="Music">Accordion</option>
+                <option value="Cajón / Box Drum" class="Music">Cajón / Box Drum</option>
+                <option value="Cello" class="Music">Cello</option>
+                <option value="Composing" class="Music">Composing</option>
+                <option value="Deejaying" class="Music">Deejaying</option>
+                <option value="Drums" class="Music">Drums</option>
+                <option value="Erhu" class="Music">Erhu</option>
+                <option value="Flute" class="Music">Flute</option>                          
+                <option value="Guitar" class="Music">Guitar</option>
+                <option value="Guzheng" class="Music">Guzheng</option>
+              	<option value="Harp" class="Music">Harp</option>                          
+              	<option value="Ocarina" class="Music">Ocarina</option>
+                <option value="Piano / Organ / Keyboard" class="Music">Piano / Organ / Keyboard</option>
+                <option value="Pipa" class="Music">Pipa</option>
+                <option value="Saxophones" class="Music">Saxophones</option>
+                <option value="Singing" class="Music">Singing</option>
+                <option value="Trumpet" class="Music">Trumpet</option>
+                <option value="Ukulele" class="Music">Ukulele</option>
+                <option value="Violin" class="Music">Violin</option>
+                <option value="Harmonica" class="Music">Harmonica</option>
+                <option value="Acting" class="Performing Arts">Acting</option>
+                <option value="Balloon Sculpting" class="Performing Arts">Balloon Sculpting</option>
+                <option value="Ballroom Dancing" class="Performing Arts">Ballroom Dancing</option>
+                <option value="Circus Skills e.g. Juggling, Diabolo, Clown Acts" class="Performing Arts">Circus Skills e.g. Juggling, Diabolo, Clown Acts</option>
+                <option value="Crosstalk" class="Performing Arts">Crosstalk</option>
+                <option value="Dance" class="Performing Arts">Dance</option>
+                <option value="Emceeing / Presenter" class="Performing Arts">Emceeing / Presenter</option>
+                <option value="Line Dancing" class="Performing Arts">Line Dancing</option>
+                <option value="Magic" class="Performing Arts">Magic</option>
+                <option value="Puppetry" class="Performing Arts">Puppetry</option>
+                <option value="Ventriliquism" class="Performing Arts">Ventriliquism</option>
+                <option value="Backstage e.g. Lighting, AV" class="Performing Arts (backend)">Backstage e.g. Lighting, AV</option>
+                <option value="Costume Design" class="Performing Arts (backend)">Costume Design</option>
+                <option value="Hairstyling" class="Performing Arts (backend)">Hairstyling</option>
+                <option value="Make-up" class="Performing Arts (backend)">Make-up</option>
+                <option value="Script Writing" class="Performing Arts (backend)">Script Writing</option>
+                <option value="Set Design" class="Performing Arts (backend)">Set Design</option>
+                <option value="Accounting" class="Professional Skills">Accounting</option>
+                <option value="Advertising" class="Professional Skills">Advertising</option>
+                <option value="Audit" class="Professional Skills">Audit</option>
+                <option value="Branding &amp; Marketing" class="Professional Skills">Branding &amp; Marketing</option>
+                <option value="Carpentry" class="Professional Skills">Carpentry</option>
+                <option value="Coaching" class="Professional Skills">Coaching</option>
+                <option value="Consulting" class="Professional Skills">Consulting</option>
+                <option value="Counselling &amp; Case Management" class="Professional Skills">Counselling &amp; Case Management</option>
+                <option value="Crisis Management" class="Professional Skills">Crisis Management</option>
+                <option value="Customer Service" class="Professional Skills">Customer Service</option>
+                <option value="Dental" class="Professional Skills">Dental</option>
+                <option value="Early Childhood / Childcare" class="Professional Skills">Early Childhood / Childcare</option>
+                <option value="Electric / Electronics" class="Professional Skills">Electric / Electronics</option>
+                <option value="Event Planning" class="Professional Skills">Event Planning</option>
+                <option value="Fashion Design" class="Professional Skills">Fashion Design</option>
+                <option value="Financial Planning" class="Professional Skills">Financial Planning</option>
+                <option value="First Aid / CPR" class="Professional Skills">First Aid / CPR</option>
+                <option value="Food &amp; Nutrition" class="Professional Skills">Food &amp; Nutrition</option>
+                <option value="Fundraising" class="Professional Skills">Fundraising</option>
+                <option value="Grant Writing" class="Professional Skills">Grant Writing</option>
+                <option value="Human Resources e.g. Interviewing" class="Professional Skills">Human Resources e.g. Interviewing</option>
+                <option value="Interior Design" class="Professional Skills">Interior Design</option>
+                <option value="Legal" class="Professional Skills">Legal</option>
+                <option value="Media Management" class="Professional Skills">Media Management</option>
+                <option value="Mediation" class="Professional Skills">Mediation</option>
+                <option value="Medical (Doctor)" class="Professional Skills">Medical (Doctor)</option>
+                <option value="Nursing" class="Professional Skills">Nursing</option>
+                <option value="Occupational Therapy" class="Professional Skills">Occupational Therapy</option>
+                <option value="Physiotherapy" class="Professional Skills">Physiotherapy</option>
+                <option value="Plumbing" class="Professional Skills">Plumbing</option>
+                <option value="Project Management" class="Professional Skills">Project Management</option>
+                <option value="Research" class="Professional Skills">Research</option>
+                <option value="Sales" class="Professional Skills">Sales</option>
+                <option value="Special Needs" class="Professional Skills">Special Needs</option>
+                <option value="Speech Therapy" class="Professional Skills">Speech Therapy</option>
+                <option value="Teaching / Lesson Planning" class="Professional Skills">Teaching / Lesson Planning</option>
+                <option value="Therapeutic Massage" class="Professional Skills">Therapeutic Massage</option>
+                <option value="Volunteer Programme Management" class="Professional Skills">Volunteer Programme Management</option>
+                <option value="Others" class="Professional Skills">Others</option>
+			</select>
+			<script>$("#00N6F00000EgS70").chained("#00N6F00000EgS74"); </script>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label"></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <div><label class="text-top-label">Proficiency</label></div>
+            <select title="Skill #1 Proficiency" class="oppSearch form-control form-control-sm" name="00N6F00000EgS78" id="00N6F00000EgS78">
+            	<option value="">--None--</option>
+            	<option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+                <option value="Certified">Certified</option>
+                <option value="Licensed">Licensed</option>
+                <option value="Able to train others">Able to train others</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Remarks</label></div>
+            <textarea rows="3" class="oppSearch form-control rounded-0" id="00N6F00000EgS7C" name="00N6F00000EgS7C"></textarea>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">My Skill #2:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Category</label></div>
+            <select title="Skill #2 Category" class="oppSearch form-control form-control-sm" name="00N6F00000EgS75" id="00N6F00000EgS75">
+            	<option value="">--None--</option>
+            	<option value="Art &amp; Craft">Art &amp; Craft</option>
+                <option value="Health &amp; Fitness">Health &amp; Fitness</option>
+                <option value="Hobbies &amp; Lifestyle">Hobbies &amp; Lifestyle</option>
+                <option value="Information technology">Information Technology</option>
+                <option value="Life Skills">Life Skills</option>
+                <option value="Media &amp; Communications">Media &amp; Communications</option>
+                <option value="Music">Music</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Performing Arts (backend)">Performing Arts (backend)</option>
+                <option value="Professional Skills">Professional Skills</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Skill</label></div>
+          	<select title="Skill #2 Skill" class="oppSearch form-control form-control-sm" name="00N6F00000EgS71" id="00N6F00000EgS71">
+				<option value="">--None--</option>
+                <option value="Caligraphy" class="Art &amp; Craft">Caligraphy</option>
+                <option value="Ceramics / Pottery / Clay" class="Art &amp; Craft">Ceramics / Pottery / Clay</option>
+                <option value="Craftwork" class="Art &amp; Craft">Craftwork</option>
+                <option value="Cross-stitching" class="Art &amp; Craft">Cross-stitching</option>
+                <option value="Drawing / Sketching / Painting" class="Art &amp; Craft">Drawing / Sketching / Painting</option>
+                <option value="Fabric Painting" class="Art &amp; Craft">Fabric Painting</option>
+                <option value="Floral Arrangements" class="Art &amp; Craft">Floral Arrangements</option>
+                <option value="Gift Wrapping" class="Art &amp; Craft">Gift Wrapping</option>
+                <option value="Jewellery Making" class="Art &amp; Craft">Jewellery Making</option>
+                <option value="Knitting" class="Art &amp; Craft">Knitting</option>
+                <option value="Painting" class="Art &amp; Craft">Painting</option>
+                <option value="Quilting" class="Art &amp; Craft">Quilting</option>
+                <option value="Scrapbooking" class="Art &amp; Craft">Scrapbooking</option>
+                <option value="Sewing / Tailoring" class="Art &amp; Craft">Sewing / Tailoring</option>
+                <option value="Woodwork" class="Art &amp; Craft">Woodwork</option>
+                <option value="Adventure Learning &amp; Teambuilding" class="Health &amp; Fitness">Adventure Learning &amp; Teambuilding</option>
+                <option value="Aerobics" class="Health &amp; Fitness">Aerobics</option>
+                <option value="Archery" class="Health &amp; Fitness">Archery</option>
+                <option value="Badminton" class="Health &amp; Fitness">Badminton</option>
+                <option value="Basketball" class="Health &amp; Fitness">Basketball</option>
+                <option value="Bowling" class="Health &amp; Fitness">Bowling</option>
+                <option value="Boxercise" class="Health &amp; Fitness">Boxercise</option>
+                <option value="Canoeing / Kayaking" class="Health &amp; Fitness">Canoeing / Kayaking</option>
+                <option value="Cheerleading" class="Health &amp; Fitness">Cheerleading</option>
+                <option value="Cricket" class="Health &amp; Fitness">Cricket</option>
+                <option value="Cue Sports e.g. Snooker / Billards" class="Health &amp; Fitness">Cue Sports e.g. Snooker / Billards</option>
+                <option value="Cycling / Biking" class="Health &amp; Fitness">Cycling / Biking</option>
+                <option value="Dragonboat" class="Health &amp; Fitness">Dragonboat</option>
+                <option value="Fencing" class="Health &amp; Fitness">Fencing</option>
+                <option value="Floorball" class="Health &amp; Fitness">Floorball</option>
+                <option value="Frisbee &amp; Ultimate Frisbee" class="Health &amp; Fitness">Frisbee &amp; Ultimate Frisbee</option>
+                <option value="Golf" class="Health &amp; Fitness">Golf</option>
+                <option value="Ice Skating" class="Health &amp; Fitness">Ice Skating</option>
+                <option value="Kickboxing" class="Health &amp; Fitness">Kickboxing</option>
+                <option value="Netball" class="Health &amp; Fitness">Netball</option>
+                <option value="Pilates" class="Health &amp; Fitness">Pilates</option>
+                <option value="Rock Climbing &amp; Mountaineering" class="Health &amp; Fitness">Rock Climbing &amp; Mountaineering</option>
+                <option value="Rope Skipping" class="Health &amp; Fitness">Rope Skipping</option>
+                <option value="Rugby / Tough Rugby" class="Health &amp; Fitness">Rugby / Tough Rugby</option>
+                <option value="Running" class="Health &amp; Fitness">Running</option>
+                <option value="Sailing / Windsurfing / Wakeboarding" class="Health &amp; Fitness">Sailing / Windsurfing / Wakeboarding</option>
+                <option value="Shooting" class="Health &amp; Fitness">Shooting</option>
+                <option value="Soccer / Football" class="Health &amp; Fitness">Soccer / Football</option>
+                <option value="Softball" class="Health &amp; Fitness">Softball</option>
+                <option value="Squash" class="Health &amp; Fitness">Squash</option>
+                <option value="Swimming" class="Health &amp; Fitness">Swimming</option>
+                <option value="Table Tennis" class="Health &amp; Fitness">Table Tennis</option>
+                <option value="Tchoukball" class="Health &amp; Fitness">Tchoukball</option>
+				<option value="Tennis" class="Health &amp; Fitness">Tennis</option>
+                <option value="Traditional Chinese Medicine" class="Health &amp; Fitness">Traditional Chinese Medicine</option>
+                <option value="Volleyball &amp; Beach Volleyball" class="Health &amp; Fitness">Volleyball &amp; Beach Volleyball</option>
+                <option value="Water Polo" class="Health &amp; Fitness">Water Polo</option>
+                <option value="Zumba" class="Health &amp; Fitness">Zumba</option>
+                <option value="Astronomy" class="Hobbies &amp; Lifestyle">Astronomy</option>
+                <option value="Baking" class="Hobbies &amp; Lifestyle">Baking</option>
+                <option value="Cooking" class="Hobbies &amp; Lifestyle">Cooking</option>
+                <option value="Cosplay" class="Hobbies &amp; Lifestyle">Cosplay</option>
+                <option value="Face Painting" class="Hobbies &amp; Lifestyle">Face Painting</option>
+                <option value="Fishing" class="Hobbies &amp; Lifestyle">Fishing</option>
+                <option value="Gardening / Horticulture" class="Hobbies &amp; Lifestyle">Gardening / Horticulture</option>
+                <option value="Intellectural &amp; Recreational Gaming e.g. Board Games, Chess" class="Hobbies &amp; Lifestyle">Intellectural &amp; Recreational Gaming</option>
+                <option value="Origami" class="Hobbies &amp; Lifestyle">Origami</option>
+                <option value="Storytelling" class="Hobbies &amp; Lifestyle">Storytelling</option>
+                <option value="Upcycling" class="Hobbies &amp; Lifestyle">Upcycling</option>
+                <option value="Wine Appreciation" class="Hobbies &amp; Lifestyle">Wine Appreciation</option>
+                <option value="Yoyo" class="Hobbies &amp; Lifestyle">Yoyo</option>
+                <option value="Applications Development" class="Information technology">Applications Development</option>
+                <option value="Data Science" class="Information technology">Data Science</option>
+                <option value="Database Administration" class="Information technology">Database Administration</option>
+                <option value="Hardware" class="Information technology">Hardware</option>
+                <option value="Hardware Maintenance" class="Information technology">Hardware Maintenance</option>
+                <option value="Microsoft Office" class="Information technology">Microsoft Office</option>
+                <option value="Networking" class="Information technology">Networking</option>
+                <option value="Programming" class="Information technology">Programming</option>
+                <option value="Social Media" class="Information technology">Social Media</option>
+                <option value="Website Development &amp; Design" class="Information technology">Website Development &amp; Design</option>
+                <option value="Administration &amp; Coordination" class="Life Skills">Administration &amp; Coordination</option>
+                <option value="Driving" class="Life Skills">Driving</option>
+                <option value="Facilitation" class="Life Skills">Facilitation</option>
+                <option value="Hairdressing" class="Life Skills">Hairdressing</option>
+                <option value="Housekeeping" class="Life Skills">Housekeeping</option>
+                <option value="Presentation / Public Speaking / Debate" class="Life Skills">Presentation / Public Speaking / Debate</option>
+                <option value="Proposal Writing" class="Life Skills">Proposal Writing</option>
+                <option value="Record Keeping" class="Life Skills">Record Keeping</option>
+                <option value="Sign Language" class="Life Skills">Sign Language</option>
+                <option value="Animation" class="Media &amp; Communications">Animation</option>
+                <option value="Comic Drawing" class="Media &amp; Communications">Comic Drawing</option>
+                <option value="Editorial / Writing / Journalism" class="Media &amp; Communications">Editorial / Writing / Journalism</option>
+                <option value="Graphics Design" class="Media &amp; Communications">Graphics Design</option>
+                <option value="Photography" class="Media &amp; Communications">Photography</option>
+                <option value="Translation (Verbal)" class="Media &amp; Communications">Translation (Verbal)</option>
+                <option value="Translation (Written)" class="Media &amp; Communications">Translation (Written)</option>
+                <option value="Video Production / Editing" class="Media &amp; Communications">Video Production / Editing</option>
+                <option value="A Cappella" class="Music">A Cappella</option>
+                <option value="Accordion" class="Music">Accordion</option>
+                <option value="Cajón / Box Drum" class="Music">Cajón / Box Drum</option>
+                <option value="Cello" class="Music">Cello</option>
+                <option value="Composing" class="Music">Composing</option>
+                <option value="Deejaying" class="Music">Deejaying</option>
+                <option value="Drums" class="Music">Drums</option>
+                <option value="Erhu" class="Music">Erhu</option>
+                <option value="Flute" class="Music">Flute</option>                          
+                <option value="Guitar" class="Music">Guitar</option>
+                <option value="Guzheng" class="Music">Guzheng</option>
+              	<option value="Harp" class="Music">Harp</option>                          
+              	<option value="Ocarina" class="Music">Ocarina</option>
+                <option value="Piano / Organ / Keyboard" class="Music">Piano / Organ / Keyboard</option>
+                <option value="Pipa" class="Music">Pipa</option>
+                <option value="Saxophones" class="Music">Saxophones</option>
+                <option value="Singing" class="Music">Singing</option>
+                <option value="Trumpet" class="Music">Trumpet</option>
+                <option value="Ukulele" class="Music">Ukulele</option>
+                <option value="Violin" class="Music">Violin</option>
+                <option value="Harmonica" class="Music">Harmonica</option>
+                <option value="Acting" class="Performing Arts">Acting</option>
+                <option value="Balloon Sculpting" class="Performing Arts">Balloon Sculpting</option>
+                <option value="Ballroom Dancing" class="Performing Arts">Ballroom Dancing</option>
+                <option value="Circus Skills e.g. Juggling, Diabolo, Clown Acts" class="Performing Arts">Circus Skills e.g. Juggling, Diabolo, Clown Acts</option>
+                <option value="Crosstalk" class="Performing Arts">Crosstalk</option>
+                <option value="Dance" class="Performing Arts">Dance</option>
+                <option value="Emceeing / Presenter" class="Performing Arts">Emceeing / Presenter</option>
+                <option value="Line Dancing" class="Performing Arts">Line Dancing</option>
+                <option value="Magic" class="Performing Arts">Magic</option>
+                <option value="Puppetry" class="Performing Arts">Puppetry</option>
+                <option value="Ventriliquism" class="Performing Arts">Ventriliquism</option>
+                <option value="Backstage e.g. Lighting, AV" class="Performing Arts (backend)">Backstage e.g. Lighting, AV</option>
+                <option value="Costume Design" class="Performing Arts (backend)">Costume Design</option>
+                <option value="Hairstyling" class="Performing Arts (backend)">Hairstyling</option>
+                <option value="Make-up" class="Performing Arts (backend)">Make-up</option>
+                <option value="Script Writing" class="Performing Arts (backend)">Script Writing</option>
+                <option value="Set Design" class="Performing Arts (backend)">Set Design</option>
+                <option value="Accounting" class="Professional Skills">Accounting</option>
+                <option value="Advertising" class="Professional Skills">Advertising</option>
+                <option value="Audit" class="Professional Skills">Audit</option>
+                <option value="Branding &amp; Marketing" class="Professional Skills">Branding &amp; Marketing</option>
+                <option value="Carpentry" class="Professional Skills">Carpentry</option>
+                <option value="Coaching" class="Professional Skills">Coaching</option>
+                <option value="Consulting" class="Professional Skills">Consulting</option>
+                <option value="Counselling &amp; Case Management" class="Professional Skills">Counselling &amp; Case Management</option>
+                <option value="Crisis Management" class="Professional Skills">Crisis Management</option>
+                <option value="Customer Service" class="Professional Skills">Customer Service</option>
+                <option value="Dental" class="Professional Skills">Dental</option>
+                <option value="Early Childhood / Childcare" class="Professional Skills">Early Childhood / Childcare</option>
+                <option value="Electric / Electronics" class="Professional Skills">Electric / Electronics</option>
+                <option value="Event Planning" class="Professional Skills">Event Planning</option>
+                <option value="Fashion Design" class="Professional Skills">Fashion Design</option>
+                <option value="Financial Planning" class="Professional Skills">Financial Planning</option>
+                <option value="First Aid / CPR" class="Professional Skills">First Aid / CPR</option>
+                <option value="Food &amp; Nutrition" class="Professional Skills">Food &amp; Nutrition</option>
+                <option value="Fundraising" class="Professional Skills">Fundraising</option>
+                <option value="Grant Writing" class="Professional Skills">Grant Writing</option>
+                <option value="Human Resources e.g. Interviewing" class="Professional Skills">Human Resources e.g. Interviewing</option>
+                <option value="Interior Design" class="Professional Skills">Interior Design</option>
+                <option value="Legal" class="Professional Skills">Legal</option>
+                <option value="Media Management" class="Professional Skills">Media Management</option>
+                <option value="Mediation" class="Professional Skills">Mediation</option>
+                <option value="Medical (Doctor)" class="Professional Skills">Medical (Doctor)</option>
+                <option value="Nursing" class="Professional Skills">Nursing</option>
+                <option value="Occupational Therapy" class="Professional Skills">Occupational Therapy</option>
+                <option value="Physiotherapy" class="Professional Skills">Physiotherapy</option>
+                <option value="Plumbing" class="Professional Skills">Plumbing</option>
+                <option value="Project Management" class="Professional Skills">Project Management</option>
+                <option value="Research" class="Professional Skills">Research</option>
+                <option value="Sales" class="Professional Skills">Sales</option>
+                <option value="Special Needs" class="Professional Skills">Special Needs</option>
+                <option value="Speech Therapy" class="Professional Skills">Speech Therapy</option>
+                <option value="Teaching / Lesson Planning" class="Professional Skills">Teaching / Lesson Planning</option>
+                <option value="Therapeutic Massage" class="Professional Skills">Therapeutic Massage</option>
+                <option value="Volunteer Programme Management" class="Professional Skills">Volunteer Programme Management</option>
+                <option value="Others" class="Professional Skills">Others</option>
+			</select>
+			<script>$("#00N6F00000EgS71").chained("#00N6F00000EgS75"); </script>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label"></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <div><label class="text-top-label">Proficiency</label></div>
+            <select title="Skill #2 Proficiency" class="oppSearch form-control form-control-sm" name="00N6F00000EgS79" id="00N6F00000EgS79">
+            	<option value="">--None--</option>
+            	<option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+                <option value="Certified">Certified</option>
+                <option value="Licensed">Licensed</option>
+                <option value="Able to train others">Able to train others</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Remarks</label></div>
+            <textarea rows="3" class="oppSearch form-control rounded-0" id="00N6F00000EgS7D" name="00N6F00000EgS7D"></textarea>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">My Skill #3:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Category</label></div>
+            <select title="Skill #3 Category" class="oppSearch form-control form-control-sm" name="00N6F00000EgS76" id="00N6F00000EgS76">
+            	<option value="">--None--</option>
+            	<option value="Art &amp; Craft">Art &amp; Craft</option>
+                <option value="Health &amp; Fitness">Health &amp; Fitness</option>
+                <option value="Hobbies &amp; Lifestyle">Hobbies &amp; Lifestyle</option>
+                <option value="Information technology">Information Technology</option>
+                <option value="Life Skills">Life Skills</option>
+                <option value="Media &amp; Communications">Media &amp; Communications</option>
+                <option value="Music">Music</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Performing Arts (backend)">Performing Arts (backend)</option>
+                <option value="Professional Skills">Professional Skills</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Skill</label></div>
+          	<select title="Skill #3 Skill" class="oppSearch form-control form-control-sm" name="00N6F00000EgS72" id="00N6F00000EgS72">
+				<option value="">--None--</option>
+                <option value="Caligraphy" class="Art &amp; Craft">Caligraphy</option>
+                <option value="Ceramics / Pottery / Clay" class="Art &amp; Craft">Ceramics / Pottery / Clay</option>
+                <option value="Craftwork" class="Art &amp; Craft">Craftwork</option>
+                <option value="Cross-stitching" class="Art &amp; Craft">Cross-stitching</option>
+                <option value="Drawing / Sketching / Painting" class="Art &amp; Craft">Drawing / Sketching / Painting</option>
+                <option value="Fabric Painting" class="Art &amp; Craft">Fabric Painting</option>
+                <option value="Floral Arrangements" class="Art &amp; Craft">Floral Arrangements</option>
+                <option value="Gift Wrapping" class="Art &amp; Craft">Gift Wrapping</option>
+                <option value="Jewellery Making" class="Art &amp; Craft">Jewellery Making</option>
+                <option value="Knitting" class="Art &amp; Craft">Knitting</option>
+                <option value="Painting" class="Art &amp; Craft">Painting</option>
+                <option value="Quilting" class="Art &amp; Craft">Quilting</option>
+                <option value="Scrapbooking" class="Art &amp; Craft">Scrapbooking</option>
+                <option value="Sewing / Tailoring" class="Art &amp; Craft">Sewing / Tailoring</option>
+                <option value="Woodwork" class="Art &amp; Craft">Woodwork</option>
+                <option value="Adventure Learning &amp; Teambuilding" class="Health &amp; Fitness">Adventure Learning &amp; Teambuilding</option>
+                <option value="Aerobics" class="Health &amp; Fitness">Aerobics</option>
+                <option value="Archery" class="Health &amp; Fitness">Archery</option>
+                <option value="Badminton" class="Health &amp; Fitness">Badminton</option>
+                <option value="Basketball" class="Health &amp; Fitness">Basketball</option>
+                <option value="Bowling" class="Health &amp; Fitness">Bowling</option>
+                <option value="Boxercise" class="Health &amp; Fitness">Boxercise</option>
+                <option value="Canoeing / Kayaking" class="Health &amp; Fitness">Canoeing / Kayaking</option>
+                <option value="Cheerleading" class="Health &amp; Fitness">Cheerleading</option>
+                <option value="Cricket" class="Health &amp; Fitness">Cricket</option>
+                <option value="Cue Sports e.g. Snooker / Billards" class="Health &amp; Fitness">Cue Sports e.g. Snooker / Billards</option>
+                <option value="Cycling / Biking" class="Health &amp; Fitness">Cycling / Biking</option>
+                <option value="Dragonboat" class="Health &amp; Fitness">Dragonboat</option>
+                <option value="Fencing" class="Health &amp; Fitness">Fencing</option>
+                <option value="Floorball" class="Health &amp; Fitness">Floorball</option>
+                <option value="Frisbee &amp; Ultimate Frisbee" class="Health &amp; Fitness">Frisbee &amp; Ultimate Frisbee</option>
+                <option value="Golf" class="Health &amp; Fitness">Golf</option>
+                <option value="Ice Skating" class="Health &amp; Fitness">Ice Skating</option>
+                <option value="Kickboxing" class="Health &amp; Fitness">Kickboxing</option>
+                <option value="Netball" class="Health &amp; Fitness">Netball</option>
+                <option value="Pilates" class="Health &amp; Fitness">Pilates</option>
+                <option value="Rock Climbing &amp; Mountaineering" class="Health &amp; Fitness">Rock Climbing &amp; Mountaineering</option>
+                <option value="Rope Skipping" class="Health &amp; Fitness">Rope Skipping</option>
+                <option value="Rugby / Tough Rugby" class="Health &amp; Fitness">Rugby / Tough Rugby</option>
+                <option value="Running" class="Health &amp; Fitness">Running</option>
+                <option value="Sailing / Windsurfing / Wakeboarding" class="Health &amp; Fitness">Sailing / Windsurfing / Wakeboarding</option>
+                <option value="Shooting" class="Health &amp; Fitness">Shooting</option>
+                <option value="Soccer / Football" class="Health &amp; Fitness">Soccer / Football</option>
+                <option value="Softball" class="Health &amp; Fitness">Softball</option>
+                <option value="Squash" class="Health &amp; Fitness">Squash</option>
+                <option value="Swimming" class="Health &amp; Fitness">Swimming</option>
+                <option value="Table Tennis" class="Health &amp; Fitness">Table Tennis</option>
+                <option value="Tchoukball" class="Health &amp; Fitness">Tchoukball</option>
+				<option value="Tennis" class="Health &amp; Fitness">Tennis</option>
+                <option value="Traditional Chinese Medicine" class="Health &amp; Fitness">Traditional Chinese Medicine</option>
+                <option value="Volleyball &amp; Beach Volleyball" class="Health &amp; Fitness">Volleyball &amp; Beach Volleyball</option>
+                <option value="Water Polo" class="Health &amp; Fitness">Water Polo</option>
+                <option value="Zumba" class="Health &amp; Fitness">Zumba</option>
+                <option value="Astronomy" class="Hobbies &amp; Lifestyle">Astronomy</option>
+                <option value="Baking" class="Hobbies &amp; Lifestyle">Baking</option>
+                <option value="Cooking" class="Hobbies &amp; Lifestyle">Cooking</option>
+                <option value="Cosplay" class="Hobbies &amp; Lifestyle">Cosplay</option>
+                <option value="Face Painting" class="Hobbies &amp; Lifestyle">Face Painting</option>
+                <option value="Fishing" class="Hobbies &amp; Lifestyle">Fishing</option>
+                <option value="Gardening / Horticulture" class="Hobbies &amp; Lifestyle">Gardening / Horticulture</option>
+                <option value="Intellectural &amp; Recreational Gaming e.g. Board Games, Chess" class="Hobbies &amp; Lifestyle">Intellectural &amp; Recreational Gaming</option>
+                <option value="Origami" class="Hobbies &amp; Lifestyle">Origami</option>
+                <option value="Storytelling" class="Hobbies &amp; Lifestyle">Storytelling</option>
+                <option value="Upcycling" class="Hobbies &amp; Lifestyle">Upcycling</option>
+                <option value="Wine Appreciation" class="Hobbies &amp; Lifestyle">Wine Appreciation</option>
+                <option value="Yoyo" class="Hobbies &amp; Lifestyle">Yoyo</option>
+                <option value="Applications Development" class="Information technology">Applications Development</option>
+                <option value="Data Science" class="Information technology">Data Science</option>
+                <option value="Database Administration" class="Information technology">Database Administration</option>
+                <option value="Hardware" class="Information technology">Hardware</option>
+                <option value="Hardware Maintenance" class="Information technology">Hardware Maintenance</option>
+                <option value="Microsoft Office" class="Information technology">Microsoft Office</option>
+                <option value="Networking" class="Information technology">Networking</option>
+                <option value="Programming" class="Information technology">Programming</option>
+                <option value="Social Media" class="Information technology">Social Media</option>
+                <option value="Website Development &amp; Design" class="Information technology">Website Development &amp; Design</option>
+                <option value="Administration &amp; Coordination" class="Life Skills">Administration &amp; Coordination</option>
+                <option value="Driving" class="Life Skills">Driving</option>
+                <option value="Facilitation" class="Life Skills">Facilitation</option>
+                <option value="Hairdressing" class="Life Skills">Hairdressing</option>
+                <option value="Housekeeping" class="Life Skills">Housekeeping</option>
+                <option value="Presentation / Public Speaking / Debate" class="Life Skills">Presentation / Public Speaking / Debate</option>
+                <option value="Proposal Writing" class="Life Skills">Proposal Writing</option>
+                <option value="Record Keeping" class="Life Skills">Record Keeping</option>
+                <option value="Sign Language" class="Life Skills">Sign Language</option>
+                <option value="Animation" class="Media &amp; Communications">Animation</option>
+                <option value="Comic Drawing" class="Media &amp; Communications">Comic Drawing</option>
+                <option value="Editorial / Writing / Journalism" class="Media &amp; Communications">Editorial / Writing / Journalism</option>
+                <option value="Graphics Design" class="Media &amp; Communications">Graphics Design</option>
+                <option value="Photography" class="Media &amp; Communications">Photography</option>
+                <option value="Translation (Verbal)" class="Media &amp; Communications">Translation (Verbal)</option>
+                <option value="Translation (Written)" class="Media &amp; Communications">Translation (Written)</option>
+                <option value="Video Production / Editing" class="Media &amp; Communications">Video Production / Editing</option>
+                <option value="A Cappella" class="Music">A Cappella</option>
+                <option value="Accordion" class="Music">Accordion</option>
+                <option value="Cajón / Box Drum" class="Music">Cajón / Box Drum</option>
+                <option value="Cello" class="Music">Cello</option>
+                <option value="Composing" class="Music">Composing</option>
+                <option value="Deejaying" class="Music">Deejaying</option>
+                <option value="Drums" class="Music">Drums</option>
+                <option value="Erhu" class="Music">Erhu</option>
+                <option value="Flute" class="Music">Flute</option>                          
+                <option value="Guitar" class="Music">Guitar</option>
+                <option value="Guzheng" class="Music">Guzheng</option>
+              	<option value="Harp" class="Music">Harp</option>                          
+              	<option value="Ocarina" class="Music">Ocarina</option>
+                <option value="Piano / Organ / Keyboard" class="Music">Piano / Organ / Keyboard</option>
+                <option value="Pipa" class="Music">Pipa</option>
+                <option value="Saxophones" class="Music">Saxophones</option>
+                <option value="Singing" class="Music">Singing</option>
+                <option value="Trumpet" class="Music">Trumpet</option>
+                <option value="Ukulele" class="Music">Ukulele</option>
+                <option value="Violin" class="Music">Violin</option>
+                <option value="Harmonica" class="Music">Harmonica</option>
+                <option value="Acting" class="Performing Arts">Acting</option>
+                <option value="Balloon Sculpting" class="Performing Arts">Balloon Sculpting</option>
+                <option value="Ballroom Dancing" class="Performing Arts">Ballroom Dancing</option>
+                <option value="Circus Skills e.g. Juggling, Diabolo, Clown Acts" class="Performing Arts">Circus Skills e.g. Juggling, Diabolo, Clown Acts</option>
+                <option value="Crosstalk" class="Performing Arts">Crosstalk</option>
+                <option value="Dance" class="Performing Arts">Dance</option>
+                <option value="Emceeing / Presenter" class="Performing Arts">Emceeing / Presenter</option>
+                <option value="Line Dancing" class="Performing Arts">Line Dancing</option>
+                <option value="Magic" class="Performing Arts">Magic</option>
+                <option value="Puppetry" class="Performing Arts">Puppetry</option>
+                <option value="Ventriliquism" class="Performing Arts">Ventriliquism</option>
+                <option value="Backstage e.g. Lighting, AV" class="Performing Arts (backend)">Backstage e.g. Lighting, AV</option>
+                <option value="Costume Design" class="Performing Arts (backend)">Costume Design</option>
+                <option value="Hairstyling" class="Performing Arts (backend)">Hairstyling</option>
+                <option value="Make-up" class="Performing Arts (backend)">Make-up</option>
+                <option value="Script Writing" class="Performing Arts (backend)">Script Writing</option>
+                <option value="Set Design" class="Performing Arts (backend)">Set Design</option>
+                <option value="Accounting" class="Professional Skills">Accounting</option>
+                <option value="Advertising" class="Professional Skills">Advertising</option>
+                <option value="Audit" class="Professional Skills">Audit</option>
+                <option value="Branding &amp; Marketing" class="Professional Skills">Branding &amp; Marketing</option>
+                <option value="Carpentry" class="Professional Skills">Carpentry</option>
+                <option value="Coaching" class="Professional Skills">Coaching</option>
+                <option value="Consulting" class="Professional Skills">Consulting</option>
+                <option value="Counselling &amp; Case Management" class="Professional Skills">Counselling &amp; Case Management</option>
+                <option value="Crisis Management" class="Professional Skills">Crisis Management</option>
+                <option value="Customer Service" class="Professional Skills">Customer Service</option>
+                <option value="Dental" class="Professional Skills">Dental</option>
+                <option value="Early Childhood / Childcare" class="Professional Skills">Early Childhood / Childcare</option>
+                <option value="Electric / Electronics" class="Professional Skills">Electric / Electronics</option>
+                <option value="Event Planning" class="Professional Skills">Event Planning</option>
+                <option value="Fashion Design" class="Professional Skills">Fashion Design</option>
+                <option value="Financial Planning" class="Professional Skills">Financial Planning</option>
+                <option value="First Aid / CPR" class="Professional Skills">First Aid / CPR</option>
+                <option value="Food &amp; Nutrition" class="Professional Skills">Food &amp; Nutrition</option>
+                <option value="Fundraising" class="Professional Skills">Fundraising</option>
+                <option value="Grant Writing" class="Professional Skills">Grant Writing</option>
+                <option value="Human Resources e.g. Interviewing" class="Professional Skills">Human Resources e.g. Interviewing</option>
+                <option value="Interior Design" class="Professional Skills">Interior Design</option>
+                <option value="Legal" class="Professional Skills">Legal</option>
+                <option value="Media Management" class="Professional Skills">Media Management</option>
+                <option value="Mediation" class="Professional Skills">Mediation</option>
+                <option value="Medical (Doctor)" class="Professional Skills">Medical (Doctor)</option>
+                <option value="Nursing" class="Professional Skills">Nursing</option>
+                <option value="Occupational Therapy" class="Professional Skills">Occupational Therapy</option>
+                <option value="Physiotherapy" class="Professional Skills">Physiotherapy</option>
+                <option value="Plumbing" class="Professional Skills">Plumbing</option>
+                <option value="Project Management" class="Professional Skills">Project Management</option>
+                <option value="Research" class="Professional Skills">Research</option>
+                <option value="Sales" class="Professional Skills">Sales</option>
+                <option value="Special Needs" class="Professional Skills">Special Needs</option>
+                <option value="Speech Therapy" class="Professional Skills">Speech Therapy</option>
+                <option value="Teaching / Lesson Planning" class="Professional Skills">Teaching / Lesson Planning</option>
+                <option value="Therapeutic Massage" class="Professional Skills">Therapeutic Massage</option>
+                <option value="Volunteer Programme Management" class="Professional Skills">Volunteer Programme Management</option>
+                <option value="Others" class="Professional Skills">Others</option>
+			</select>
+			<script>$("#00N6F00000EgS72").chained("#00N6F00000EgS76"); </script>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label"></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <div><label class="text-top-label">Proficiency</label></div>
+            <select title="Skill #3 Proficiency" class="oppSearch form-control form-control-sm" name="00N6F00000EgS7A" id="00N6F00000EgS7A">
+            	<option value="">--None--</option>
+            	<option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+                <option value="Certified">Certified</option>
+                <option value="Licensed">Licensed</option>
+                <option value="Able to train others">Able to train others</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Remarks</label></div>
+            <textarea rows="3" class="oppSearch form-control rounded-0" id="00N6F00000EgS7E" name="00N6F00000EgS7E"></textarea>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">My Skill #4:</label>
+          </div>
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Category</label></div>
+            <select title="Skill #4 Category" class="oppSearch form-control form-control-sm" name="00N6F00000EgS77" id="00N6F00000EgS77">
+            	<option value="">--None--</option>
+            	<option value="Art &amp; Craft">Art &amp; Craft</option>
+                <option value="Health &amp; Fitness">Health &amp; Fitness</option>
+                <option value="Hobbies &amp; Lifestyle">Hobbies &amp; Lifestyle</option>
+                <option value="Information technology">Information Technology</option>
+                <option value="Life Skills">Life Skills</option>
+                <option value="Media &amp; Communications">Media &amp; Communications</option>
+                <option value="Music">Music</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Performing Arts (backend)">Performing Arts (backend)</option>
+                <option value="Professional Skills">Professional Skills</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Skill</label></div>
+          	<select title="Skill #4 Skill" class="oppSearch form-control form-control-sm" name="00N6F00000EgS73" id="00N6F00000EgS73">
+				<option value="">--None--</option>
+                <option value="Caligraphy" class="Art &amp; Craft">Caligraphy</option>
+                <option value="Ceramics / Pottery / Clay" class="Art &amp; Craft">Ceramics / Pottery / Clay</option>
+                <option value="Craftwork" class="Art &amp; Craft">Craftwork</option>
+                <option value="Cross-stitching" class="Art &amp; Craft">Cross-stitching</option>
+                <option value="Drawing / Sketching / Painting" class="Art &amp; Craft">Drawing / Sketching / Painting</option>
+                <option value="Fabric Painting" class="Art &amp; Craft">Fabric Painting</option>
+                <option value="Floral Arrangements" class="Art &amp; Craft">Floral Arrangements</option>
+                <option value="Gift Wrapping" class="Art &amp; Craft">Gift Wrapping</option>
+                <option value="Jewellery Making" class="Art &amp; Craft">Jewellery Making</option>
+                <option value="Knitting" class="Art &amp; Craft">Knitting</option>
+                <option value="Painting" class="Art &amp; Craft">Painting</option>
+                <option value="Quilting" class="Art &amp; Craft">Quilting</option>
+                <option value="Scrapbooking" class="Art &amp; Craft">Scrapbooking</option>
+                <option value="Sewing / Tailoring" class="Art &amp; Craft">Sewing / Tailoring</option>
+                <option value="Woodwork" class="Art &amp; Craft">Woodwork</option>
+                <option value="Adventure Learning &amp; Teambuilding" class="Health &amp; Fitness">Adventure Learning &amp; Teambuilding</option>
+                <option value="Aerobics" class="Health &amp; Fitness">Aerobics</option>
+                <option value="Archery" class="Health &amp; Fitness">Archery</option>
+                <option value="Badminton" class="Health &amp; Fitness">Badminton</option>
+                <option value="Basketball" class="Health &amp; Fitness">Basketball</option>
+                <option value="Bowling" class="Health &amp; Fitness">Bowling</option>
+                <option value="Boxercise" class="Health &amp; Fitness">Boxercise</option>
+                <option value="Canoeing / Kayaking" class="Health &amp; Fitness">Canoeing / Kayaking</option>
+                <option value="Cheerleading" class="Health &amp; Fitness">Cheerleading</option>
+                <option value="Cricket" class="Health &amp; Fitness">Cricket</option>
+                <option value="Cue Sports e.g. Snooker / Billards" class="Health &amp; Fitness">Cue Sports e.g. Snooker / Billards</option>
+                <option value="Cycling / Biking" class="Health &amp; Fitness">Cycling / Biking</option>
+                <option value="Dragonboat" class="Health &amp; Fitness">Dragonboat</option>
+                <option value="Fencing" class="Health &amp; Fitness">Fencing</option>
+                <option value="Floorball" class="Health &amp; Fitness">Floorball</option>
+                <option value="Frisbee &amp; Ultimate Frisbee" class="Health &amp; Fitness">Frisbee &amp; Ultimate Frisbee</option>
+                <option value="Golf" class="Health &amp; Fitness">Golf</option>
+                <option value="Ice Skating" class="Health &amp; Fitness">Ice Skating</option>
+                <option value="Kickboxing" class="Health &amp; Fitness">Kickboxing</option>
+                <option value="Netball" class="Health &amp; Fitness">Netball</option>
+                <option value="Pilates" class="Health &amp; Fitness">Pilates</option>
+                <option value="Rock Climbing &amp; Mountaineering" class="Health &amp; Fitness">Rock Climbing &amp; Mountaineering</option>
+                <option value="Rope Skipping" class="Health &amp; Fitness">Rope Skipping</option>
+                <option value="Rugby / Tough Rugby" class="Health &amp; Fitness">Rugby / Tough Rugby</option>
+                <option value="Running" class="Health &amp; Fitness">Running</option>
+                <option value="Sailing / Windsurfing / Wakeboarding" class="Health &amp; Fitness">Sailing / Windsurfing / Wakeboarding</option>
+                <option value="Shooting" class="Health &amp; Fitness">Shooting</option>
+                <option value="Soccer / Football" class="Health &amp; Fitness">Soccer / Football</option>
+                <option value="Softball" class="Health &amp; Fitness">Softball</option>
+                <option value="Squash" class="Health &amp; Fitness">Squash</option>
+                <option value="Swimming" class="Health &amp; Fitness">Swimming</option>
+                <option value="Table Tennis" class="Health &amp; Fitness">Table Tennis</option>
+                <option value="Tchoukball" class="Health &amp; Fitness">Tchoukball</option>
+				<option value="Tennis" class="Health &amp; Fitness">Tennis</option>
+                <option value="Traditional Chinese Medicine" class="Health &amp; Fitness">Traditional Chinese Medicine</option>
+                <option value="Volleyball &amp; Beach Volleyball" class="Health &amp; Fitness">Volleyball &amp; Beach Volleyball</option>
+                <option value="Water Polo" class="Health &amp; Fitness">Water Polo</option>
+                <option value="Zumba" class="Health &amp; Fitness">Zumba</option>
+                <option value="Astronomy" class="Hobbies &amp; Lifestyle">Astronomy</option>
+                <option value="Baking" class="Hobbies &amp; Lifestyle">Baking</option>
+                <option value="Cooking" class="Hobbies &amp; Lifestyle">Cooking</option>
+                <option value="Cosplay" class="Hobbies &amp; Lifestyle">Cosplay</option>
+                <option value="Face Painting" class="Hobbies &amp; Lifestyle">Face Painting</option>
+                <option value="Fishing" class="Hobbies &amp; Lifestyle">Fishing</option>
+                <option value="Gardening / Horticulture" class="Hobbies &amp; Lifestyle">Gardening / Horticulture</option>
+                <option value="Intellectural &amp; Recreational Gaming e.g. Board Games, Chess" class="Hobbies &amp; Lifestyle">Intellectural &amp; Recreational Gaming</option>
+                <option value="Origami" class="Hobbies &amp; Lifestyle">Origami</option>
+                <option value="Storytelling" class="Hobbies &amp; Lifestyle">Storytelling</option>
+                <option value="Upcycling" class="Hobbies &amp; Lifestyle">Upcycling</option>
+                <option value="Wine Appreciation" class="Hobbies &amp; Lifestyle">Wine Appreciation</option>
+                <option value="Yoyo" class="Hobbies &amp; Lifestyle">Yoyo</option>
+                <option value="Applications Development" class="Information technology">Applications Development</option>
+                <option value="Data Science" class="Information technology">Data Science</option>
+                <option value="Database Administration" class="Information technology">Database Administration</option>
+                <option value="Hardware" class="Information technology">Hardware</option>
+                <option value="Hardware Maintenance" class="Information technology">Hardware Maintenance</option>
+                <option value="Microsoft Office" class="Information technology">Microsoft Office</option>
+                <option value="Networking" class="Information technology">Networking</option>
+                <option value="Programming" class="Information technology">Programming</option>
+                <option value="Social Media" class="Information technology">Social Media</option>
+                <option value="Website Development &amp; Design" class="Information technology">Website Development &amp; Design</option>
+                <option value="Administration &amp; Coordination" class="Life Skills">Administration &amp; Coordination</option>
+                <option value="Driving" class="Life Skills">Driving</option>
+                <option value="Facilitation" class="Life Skills">Facilitation</option>
+                <option value="Hairdressing" class="Life Skills">Hairdressing</option>
+                <option value="Housekeeping" class="Life Skills">Housekeeping</option>
+                <option value="Presentation / Public Speaking / Debate" class="Life Skills">Presentation / Public Speaking / Debate</option>
+                <option value="Proposal Writing" class="Life Skills">Proposal Writing</option>
+                <option value="Record Keeping" class="Life Skills">Record Keeping</option>
+                <option value="Sign Language" class="Life Skills">Sign Language</option>
+                <option value="Animation" class="Media &amp; Communications">Animation</option>
+                <option value="Comic Drawing" class="Media &amp; Communications">Comic Drawing</option>
+                <option value="Editorial / Writing / Journalism" class="Media &amp; Communications">Editorial / Writing / Journalism</option>
+                <option value="Graphics Design" class="Media &amp; Communications">Graphics Design</option>
+                <option value="Photography" class="Media &amp; Communications">Photography</option>
+                <option value="Translation (Verbal)" class="Media &amp; Communications">Translation (Verbal)</option>
+                <option value="Translation (Written)" class="Media &amp; Communications">Translation (Written)</option>
+                <option value="Video Production / Editing" class="Media &amp; Communications">Video Production / Editing</option>
+                <option value="A Cappella" class="Music">A Cappella</option>
+                <option value="Accordion" class="Music">Accordion</option>
+                <option value="Cajón / Box Drum" class="Music">Cajón / Box Drum</option>
+                <option value="Cello" class="Music">Cello</option>
+                <option value="Composing" class="Music">Composing</option>
+                <option value="Deejaying" class="Music">Deejaying</option>
+                <option value="Drums" class="Music">Drums</option>
+                <option value="Erhu" class="Music">Erhu</option>
+                <option value="Flute" class="Music">Flute</option>                          
+                <option value="Guitar" class="Music">Guitar</option>
+                <option value="Guzheng" class="Music">Guzheng</option>
+              	<option value="Harp" class="Music">Harp</option>                          
+              	<option value="Ocarina" class="Music">Ocarina</option>
+                <option value="Piano / Organ / Keyboard" class="Music">Piano / Organ / Keyboard</option>
+                <option value="Pipa" class="Music">Pipa</option>
+                <option value="Saxophones" class="Music">Saxophones</option>
+                <option value="Singing" class="Music">Singing</option>
+                <option value="Trumpet" class="Music">Trumpet</option>
+                <option value="Ukulele" class="Music">Ukulele</option>
+                <option value="Violin" class="Music">Violin</option>
+                <option value="Harmonica" class="Music">Harmonica</option>
+                <option value="Acting" class="Performing Arts">Acting</option>
+                <option value="Balloon Sculpting" class="Performing Arts">Balloon Sculpting</option>
+                <option value="Ballroom Dancing" class="Performing Arts">Ballroom Dancing</option>
+                <option value="Circus Skills e.g. Juggling, Diabolo, Clown Acts" class="Performing Arts">Circus Skills e.g. Juggling, Diabolo, Clown Acts</option>
+                <option value="Crosstalk" class="Performing Arts">Crosstalk</option>
+                <option value="Dance" class="Performing Arts">Dance</option>
+                <option value="Emceeing / Presenter" class="Performing Arts">Emceeing / Presenter</option>
+                <option value="Line Dancing" class="Performing Arts">Line Dancing</option>
+                <option value="Magic" class="Performing Arts">Magic</option>
+                <option value="Puppetry" class="Performing Arts">Puppetry</option>
+                <option value="Ventriliquism" class="Performing Arts">Ventriliquism</option>
+                <option value="Backstage e.g. Lighting, AV" class="Performing Arts (backend)">Backstage e.g. Lighting, AV</option>
+                <option value="Costume Design" class="Performing Arts (backend)">Costume Design</option>
+                <option value="Hairstyling" class="Performing Arts (backend)">Hairstyling</option>
+                <option value="Make-up" class="Performing Arts (backend)">Make-up</option>
+                <option value="Script Writing" class="Performing Arts (backend)">Script Writing</option>
+                <option value="Set Design" class="Performing Arts (backend)">Set Design</option>
+                <option value="Accounting" class="Professional Skills">Accounting</option>
+                <option value="Advertising" class="Professional Skills">Advertising</option>
+                <option value="Audit" class="Professional Skills">Audit</option>
+                <option value="Branding &amp; Marketing" class="Professional Skills">Branding &amp; Marketing</option>
+                <option value="Carpentry" class="Professional Skills">Carpentry</option>
+                <option value="Coaching" class="Professional Skills">Coaching</option>
+                <option value="Consulting" class="Professional Skills">Consulting</option>
+                <option value="Counselling &amp; Case Management" class="Professional Skills">Counselling &amp; Case Management</option>
+                <option value="Crisis Management" class="Professional Skills">Crisis Management</option>
+                <option value="Customer Service" class="Professional Skills">Customer Service</option>
+                <option value="Dental" class="Professional Skills">Dental</option>
+                <option value="Early Childhood / Childcare" class="Professional Skills">Early Childhood / Childcare</option>
+                <option value="Electric / Electronics" class="Professional Skills">Electric / Electronics</option>
+                <option value="Event Planning" class="Professional Skills">Event Planning</option>
+                <option value="Fashion Design" class="Professional Skills">Fashion Design</option>
+                <option value="Financial Planning" class="Professional Skills">Financial Planning</option>
+                <option value="First Aid / CPR" class="Professional Skills">First Aid / CPR</option>
+                <option value="Food &amp; Nutrition" class="Professional Skills">Food &amp; Nutrition</option>
+                <option value="Fundraising" class="Professional Skills">Fundraising</option>
+                <option value="Grant Writing" class="Professional Skills">Grant Writing</option>
+                <option value="Human Resources e.g. Interviewing" class="Professional Skills">Human Resources e.g. Interviewing</option>
+                <option value="Interior Design" class="Professional Skills">Interior Design</option>
+                <option value="Legal" class="Professional Skills">Legal</option>
+                <option value="Media Management" class="Professional Skills">Media Management</option>
+                <option value="Mediation" class="Professional Skills">Mediation</option>
+                <option value="Medical (Doctor)" class="Professional Skills">Medical (Doctor)</option>
+                <option value="Nursing" class="Professional Skills">Nursing</option>
+                <option value="Occupational Therapy" class="Professional Skills">Occupational Therapy</option>
+                <option value="Physiotherapy" class="Professional Skills">Physiotherapy</option>
+                <option value="Plumbing" class="Professional Skills">Plumbing</option>
+                <option value="Project Management" class="Professional Skills">Project Management</option>
+                <option value="Research" class="Professional Skills">Research</option>
+                <option value="Sales" class="Professional Skills">Sales</option>
+                <option value="Special Needs" class="Professional Skills">Special Needs</option>
+                <option value="Speech Therapy" class="Professional Skills">Speech Therapy</option>
+                <option value="Teaching / Lesson Planning" class="Professional Skills">Teaching / Lesson Planning</option>
+                <option value="Therapeutic Massage" class="Professional Skills">Therapeutic Massage</option>
+                <option value="Volunteer Programme Management" class="Professional Skills">Volunteer Programme Management</option>
+                <option value="Others" class="Professional Skills">Others</option>
+			</select>
+			<script>$("#00N6F00000EgS73").chained("#00N6F00000EgS77"); </script>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label"></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <div><label class="text-top-label">Proficiency</label></div>
+            <select title="Skill #4 Proficiency" class="oppSearch form-control form-control-sm" name="00N6F00000EgS7B" id="00N6F00000EgS7B">
+            	<option value="">--None--</option>
+            	<option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+                <option value="Certified">Certified</option>
+                <option value="Licensed">Licensed</option>
+                <option value="Able to train others">Able to train others</option>
+            </select>
+          </div>          
+          <div class="col-md-3 mb-1">
+          	<div><label class="text-top-label">Remarks</label></div>
+            <textarea rows="3" class="oppSearch form-control rounded-0" id="00N6F00000EgS7F" name="00N6F00000EgS7F"></textarea>
+          </div>
+        </div>
+		<hr>                
+        <!-- End of Language and Skills -->
+        
+        <div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="lead">Emergency Contacts</label>
+    		</div>
+    	</div>
+        <div class="row">          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Name:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="80" class="oppSearch form-control" id="00N6F00000EgS5z" name="00N6F00000EgS5z"/>
+            <div style="color:red" id="00N6F00000EgS5zError"></div>
+          </div>
+        </div>
+        <div class="row">          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Relationship:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="30" class="oppSearch form-control" id="00N6F00000EgS61" name="00N6F00000EgS61"/>
+            <div style="color:red" id="00N6F00000EgS61Error"></div>
+          </div>
+        </div>
+        <div class="row">          
+          <div class="col-md-2 mb-1">
+            <label class="text-label" >Contact No.:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            <input type="text" size="20" maxlength="20" class="oppSearch form-control" id="00N6F00000EgS60" name="00N6F00000EgS60"/>
+            <div style="color:red" id="00N6F00000EgS60Error"></div>
+          </div>
+        </div>        
+        <hr>                
+        <!-- End of Emergency Contacts -->
+        
+        <div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="lead">Application Details</label>
+    		</div>
+    	</div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">How did you get to know about us?</label>
+          </div>
+          <div class="col-md-8 mb-1">
+            <select title="Language Written" multiple="multiple" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6s" id="00N6F00000EgS6s">
+            	<option value="Media / Newspaper / Care Corner Website">Media / Newspaper / Care Corner Website</option>
+                <option value="Government Agencies e.g. MSF / MCCY">Government Agencies e.g. MSF / MCCY</option>
+                <option value="Volunteer Matching Service e.g. SG Cares">Volunteer Matching Service e.g. SG Cares</option>
+                <option value="Other Non-Profit Agencies">Other Non-Profit Agencies</option>
+                <option value="Workplace / Colleagues">Workplace / Colleagues</option>
+                <option value="Friends / Family / Relatives">Friends / Family / Relatives</option>
+                <option value="Care Corner Volunteers">Care Corner Volunteers</option>
+                <option value="Others">Others</option>
+                <option value="School / Classmates">School / Classmates</option>
+            </select>
+            <script>
+					$('#00N6F00000EgS6s').multiSelect({ keepOrder: true });
+			</script>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">Are you applying to be a volunteer in fulfilment of community involvement requirements e.g. awards and/or course requirement(s)?</label>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Fulfillment of Requirements" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6L" id="00N6F00000EgS6L">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">Would you require certification of your voluntary involvement with Care Corner?<label style="color:red">*</label></label>
+          	<div style="color:red" id="00N6F00000EgS7SError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="VI Certification" class="oppSearch form-control form-control-sm" name="00N6F00000EgS7S" id="00N6F00000EgS7S">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+		  <div class="col-md-3 mb-1">
+		  	<label class="header-label">Availability:</label>
+		  	<div class="custom-control custom-checkbox">
+          		<input type="checkbox" class="custom-control-input" id="checkava">
+          		<label class="custom-control-label" for="checkava" style="font-size:12px;font-style:italic;">(Select all / None)</label>
+          		<script>
+					$("#checkava").change(function () {												
+						// morning checkboxes
+						$('#00N6F00000EgS6Z').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7Q').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7Y').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7N').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS6K').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS6z').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7J').prop('checked', $(this).prop("checked"));
+						// afternoon checkboxes
+						$('#00N6F00000EgS6X').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7O').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7W').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7L').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS6I').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS6x').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7H').prop('checked', $(this).prop("checked"));
+						// evening checkboxes
+						$('#00N6F00000EgS6Y').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7P').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7X').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7M').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS6J').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS6y').prop('checked', $(this).prop("checked"));
+						$('#00N6F00000EgS7I').prop('checked', $(this).prop("checked"));
+					});	
+				</script>
+        	</div>		  
+		  </div>
+		  <div class="col-md-8 mb-1 ">
+		  	<div class="table-responsive">
+		  		<table class="table" id="avatable" style="width:90%">                                       
+                	<tr>
+                    	<td> </td>
+                        <td class="txfooter" style="padding-top:5px">Mon</td>
+                        <td class="txfooter" style="padding-top:5px">Tue</td>
+                        <td class="txfooter" style="padding-top:5px">Wed</td>
+                        <td class="txfooter" style="padding-top:5px">Thur</td>
+                        <td class="txfooter" style="padding-top:5px">Fri</td>
+                        <td class="txfooter" style="padding-top:5px">Sat</td>
+                        <td class="txfooter" style="padding-top:5px">Sun</td>
+                    </tr>
+                    <tr>
+                        <td class="txfooter" style="padding-left:5px">Morning</td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6Z" id="00N6F00000EgS6Z" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7Q" id="00N6F00000EgS7Q" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7Y" id="00N6F00000EgS7Y" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7N" id="00N6F00000EgS7N" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6K" id="00N6F00000EgS6K" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6z" id="00N6F00000EgS6z" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7J" id="00N6F00000EgS7J" /></td>
+                	</tr>
+                    <tr>
+                    	<td class="txfooter" style="padding-left:5px">Afternoon</td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6X" id="00N6F00000EgS6X" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7O" id="00N6F00000EgS7O" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7W" id="00N6F00000EgS7W" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7L" id="00N6F00000EgS7L" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6I" id="00N6F00000EgS6I" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6x" id="00N6F00000EgS6x" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7H" id="00N6F00000EgS7H" /></td>
+                	</tr>
+                    <tr>
+                    	<td class="txfooter" style="padding-left:5px">Evening</td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6Y" id="00N6F00000EgS6Y" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7P" id="00N6F00000EgS7P" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7X" id="00N6F00000EgS7X" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7M" id="00N6F00000EgS7M" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6J" id="00N6F00000EgS6J" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS6y" id="00N6F00000EgS6y" /></td>
+                        <td><input type="checkbox" value="1" name="00N6F00000EgS7I" id="00N6F00000EgS7I" /></td>
+            		</tr>
+            	</table>
+		  	</div>		  	
+		  </div>
+		</div>
+		  
+		<div class="row">
+          <div class="col-md-2 mb-1">
+            	<label class="text-label" >Commitment Level:<label style="color:red">*</label></label>
+          </div>
+          <div class="col-md-3 mb-1">
+            	<select title="Commitment Level" class="oppSearch form-control form-control-sm" name="00N6F00000EgS5o" id="00N6F00000EgS5o">
+            		<option value="">--None--</option>
+            	</select>
+            	<div style="color:red" id="00N6F00000EgS5oError"></div>
+          </div>          
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">Please contact me should I be a good match for future volunteer roles:</label>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Contact for suitable roles" class="oppSearch form-control form-control-sm" name="00N6F00000EgS5r" id="00N6F00000EgS5r">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">Please update me on Care Corner news, volunteering & employment opportunities:</label>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Update Me" class="oppSearch form-control form-control-sm" name="00N6F00000EgS7R" id="00N6F00000EgS7R">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Preferred Beneficiary Group:</label>
+          </div>
+          <div class="col-md-8 mb-1">
+            <select title="Preferred Beneficiary Group" multiple="multiple" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6i" id="00N6F00000EgS6i">
+            	<option value="Children">Children</option>
+                <option value="Youth">Youth</option>
+                <option value="Seniors">Seniors</option>
+                <option value="Family">Family</option>
+                <option value="Others">Others</option>
+            </select>
+            <script>
+					$('#00N6F00000EgS6i').multiSelect({ keepOrder: true });
+			</script>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Preferred Location(s):</label>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Preferred Location #1" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6k" id="00N6F00000EgS6k">
+            	<option value="">--None--</option>
+                <option value="North">North</option>
+                <option value="South">South</option>
+                <option value="East">East</option>
+                <option value="West">West</option>
+                <option value="Central">Central</option>
+                <option value="Northeast">Northeast</option>
+                <option value="Northwest">Northwest</option>
+                <option value="Southeast">Southeast</option>
+                <option value="Southwest">Southwest</option>
+                <option value="Others">Others</option>
+            </select>
+          </div> 
+          <div class="col-md-2 mb-1">
+            <select title="Preferred Location #2" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6l" id="00N6F00000EgS6l">
+            	<option value="">--None--</option>
+                <option value="North">North</option>
+                <option value="South">South</option>
+                <option value="East">East</option>
+                <option value="West">West</option>
+                <option value="Central">Central</option>
+                <option value="Northeast">Northeast</option>
+                <option value="Northwest">Northwest</option>
+                <option value="Southeast">Southeast</option>
+                <option value="Southwest">Southwest</option>
+                <option value="Others">Others</option>
+            </select>
+          </div> 
+    	  <div class="col-md-2 mb-1">
+            <select title="Preferred Location #3" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6m" id="00N6F00000EgS6m">
+            	<option value="">--None--</option>
+                <option value="North">North</option>
+                <option value="South">South</option>
+                <option value="East">East</option>
+                <option value="West">West</option>
+                <option value="Central">Central</option>
+                <option value="Northeast">Northeast</option>
+                <option value="Northwest">Northwest</option>
+                <option value="Southeast">Southeast</option>
+                <option value="Southwest">Southwest</option>
+                <option value="Others">Others</option>
+            </select>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Preferred Location #4" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6n" id="00N6F00000EgS6n">
+            	<option value="">--None--</option>
+                <option value="North">North</option>
+                <option value="South">South</option>
+                <option value="East">East</option>
+                <option value="West">West</option>
+                <option value="Central">Central</option>
+                <option value="Northeast">Northeast</option>
+                <option value="Northwest">Northwest</option>
+                <option value="Southeast">Southeast</option>
+                <option value="Southwest">Southwest</option>
+                <option value="Others">Others</option>
+            </select>
+          </div> 	        
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2 mb-1">
+            <label class="text-label">Preferred Roles:</label>
+          </div>
+          <div class="col-md-8 mb-1">
+            <select title="Preferred Roles" multiple="multiple" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6p" id="00N6F00000EgS6p">
+            	<option value="Administration Support">Administration Support</option>
+                <option value="Befriending &amp; Mentoring">Befriending &amp; Mentoring</option>
+                <option value="Celebrations e.g. Festive/Birthdays">Celebrations e.g. Festive/Birthdays</option>
+                <option value="Day-Out with Beneficiaries">Day-Out with Beneficiaries</option>
+                <option value="Donations-in-kind Processing">Donations-in-kind Processing</option>
+                <option value="Event Support">Event Support</option>                
+                <option value="Facilities Improvement &amp; Maint.">Facilities Improvement &amp; Maint.</option>
+                <option value="Fundraising &amp; Collection Drives">Fundraising &amp; Collection Drives</option>
+                <option value="Offer-a-Skill e.g. Photography">Offer-a-Skill e.g. Photography</option>
+                <option value="Performing e.g. Magic Shows">Performing e.g. Magic Shows</option>
+                <option value="Programme Support">Programme Support</option>
+                <option value="Reading &amp; Academic Mentorship">Reading &amp; Academic Mentorship</option>
+                <option value="Share-a-skill / Knowledge">Teach-a-skill / Knowledge</option>
+                <option value="Others">Others</option>
+            </select>
+            <script>
+					$('#00N6F00000EgS6p').multiSelect({ keepOrder: true });
+			</script>
+          </div> 
+        </div>
+        
+        <hr>        
+        <!-- End of Application Details -->
+        <div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="lead">Significant Volunteer Experience</label>
+    		</div>
+    	</div>
+        <div class="row">
+        	<div class="col-md-12 mb-1">
+      			<div class="table-responsive">
+      				<table class="table" id="exp" style="width:85%">
+    					<tr>
+                        	<td class="txfooter" style="padding-top:5px">Experience</td>
+                            <td class="txfooter" style="padding-top:5px">Role Description</td>
+                        	<td class="txfooter" style="padding-top:5px">Organization</td>
+                            <td class="txfooter" style="padding-top:5px">From</td>
+                            <td class="txfooter" style="padding-top:5px">To</td>
+                        </tr>
+                        <tr>
+                            <td><input class="txfooter" type="text" name="00N6F00000EgS67" maxlength="80" id="00N6F00000EgS67" /></td>
+                            <td><textarea class="txfooter rounded-0" type="text" rows="3" name="00N6F00000EgS65" id="00N6F00000EgS65"></textarea></td>
+                            <td><input class="txfooter" type="text" name="00N6F00000EgS64" maxlength="50" id="00N6F00000EgS64" /></td>
+                            <td><input class="txfooter" type="text" name="00N6F00000EgS63" size ="10" id="00N6F00000EgS63" />
+                            	<script>
+											$( "#00N6F00000EgS63" ).datepicker({
+											      changeMonth: true,
+											      changeYear: true,
+											      yearRange: '-20:'+(new Date).getFullYear()
+											});
+								</script> 
+							</td>
+                            <td><input class="txfooter" type="text" size="10" name="00N6F00000EgS66" id="00N6F00000EgS66" />
+                                <script type="text/javascript">			
+											$( "#00N6F00000EgS66" ).datepicker({
+											      changeMonth: true,
+											      changeYear: true,
+											      yearRange: '-20:'+(new Date).getFullYear()
+											});
+								</script> 
+							</td>
+                        </tr>
+                        <tr>
+                            <td><input class="txfooter" type="text" name="00N6F00000EgS6C" maxlength="80" id="00N6F00000EgS6C" /></td>
+                            <td><textarea class="txfooter rounded-0" type="text" rows="3" name="00N6F00000EgS6A" id="00N6F00000EgS6A"></textarea></td>
+                            <td><input class="txfooter" type="text" name="00N6F00000EgS69" maxlength="50" id="00N6F00000EgS69" /></td>
+                            <td><input class="txfooter" type="text" size="10" name="00N6F00000EgS68" id="00N6F00000EgS68" />
+                                <script type="text/javascript">	
+											$( "#00N6F00000EgS68" ).datepicker({
+											      changeMonth: true,
+											      changeYear: true,
+											      yearRange: '-20:'+(new Date).getFullYear()
+											});
+								</script> 
+							</td>
+                            <td><input class="txfooter" type="text" size="10" name="00N6F00000EgS6B" id="00N6F00000EgS6B" />
+                                <script type="text/javascript">			
+											$( "#00N6F00000EgS6B" ).datepicker({
+											      changeMonth: true,
+											      changeYear: true,
+											      yearRange: '-20:'+(new Date).getFullYear()
+											});
+								</script> 
+							</td>
+                        </tr>
+                        <tr>
+                            <td><input class="txfooter" type="text" name="00N6F00000EgS6H" maxlength="80" id="00N6F00000EgS6H" /></td>
+                            <td><textarea class="txfooter rounded-0" type="text" rows="3" name="00N6F00000EgS6F" id="00N6F00000EgS6F"></textarea></td>
+                            <td><input class="txfooter" type="text" name="00N6F00000EgS6E" maxlength="50" id="00N6F00000EgS6E" /></td>
+                            <td><input class="txfooter" type="text" size="10" name="00N6F00000EgS6D" id="00N6F00000EgS6D" />
+                                <script type="text/javascript">	
+											$( "#00N6F00000EgS6D" ).datepicker({
+											      changeMonth: true,
+											      changeYear: true,
+											      yearRange: '-20:'+(new Date).getFullYear()
+											});
+								</script> 
+							</td>
+                            <td><input class="txfooter" type="text" size="10" name="00N6F00000EgS6G" id="00N6F00000EgS6G" />
+                                <script type="text/javascript">			
+											$( "#00N6F00000EgS6G" ).datepicker({
+											      changeMonth: true,
+											      changeYear: true,
+											      yearRange: '-20:'+(new Date).getFullYear()
+											});
+								</script> 
+							</td>
+                        </tr>
+                    </table> 
+      			</div>
+      		</div>
+      	</div>
+        <hr>
+        <!-- End of Significant Volunteer Experience -->
+        
+        <div class="row">
+    		<div class="col-md-12 mb-1">
+    		<label class="lead">Declaration & Agreement</label>
+    		</div>
+    	</div>
+        
+        <div class="row">
+          
+          <div class="col-md-8 mb-1">
+            <label class="text-label">1. Have you been medically diagnosed with any mental / physical condition(s) which could prevent you from competently and safely offering your service(s) as a volunteer?<label style="color:red">*</label></label>
+          	<div style="color:red" id="00N6F00000EgS6WError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Medical Constrains" class="oppSearch form-control form-control-sm" name="00N6F00000EgS6W" id="00N6F00000EgS6W">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">2. Are you a former/current staff of Care Corner?<label style="color:red">*</label></label>
+          	<div style="color:red" id="00N6F00000EgS7GError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Staff of Care Corner" class="oppSearch form-control form-control-sm" name="00N6F00000EgS7G" id="00N6F00000EgS7G">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">3. Have you been addicted to the use of alcohol or to habitual use of narcotics / other habit forming drugs?<label style="color:red">*</label></label>
+          	<div style="color:red" id="00N6F00000EgS5gError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Alcohol Drug Addiction" class="oppSearch form-control form-control-sm" name="00N6F00000EgS5g" id="00N6F00000EgS5g">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">4. Do you have a criminal record in Singapore?<label style="color:red">*</label></label>
+          	<div style="color:red" id="00N6F00000EgS5vError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Criminal Record" class="oppSearch form-control form-control-sm" name="00N6F00000EgS5v" id="00N6F00000EgS5v">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-8 mb-1">
+            <label class="text-label">5. Have you been charged with any offence in a court of law in any country for which the outcome is not yet known (excluding parking offences)? <label style="color:red">*</label></label>
+          	<div style="color:red" id="00N6F00000EgS5uError"></div>
+          </div>
+          <div class="col-md-2 mb-1">
+            <select title="Court Charge" class="oppSearch form-control form-control-sm" name="00N6F00000EgS5u" id="00N6F00000EgS5u">
+            	<option value="">--None--</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        </div>
+        
+        <div class="row">
+          <div class="col-md-10 mb-1">
+            <label class="text-label">6. Remarks (e.g. details for any of the above statements which you have responded "yes"):</label>
+          	<div style="color:red" id="00N6F00000EgS5uError"></div>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-10 mb-1">
+            <textarea rows="4" class="oppSearch form-control rounded-0" id="00N6F00000EgS5x" name="00N6F00000EgS5x"></textarea>
+          </div>          
+        </div>
+        
+        <div class="row">
+          <div class="col-md-10 mb-1">
+            <label class="text-label">7. Please indicate any conflict of interest or other matters that would prevent you from carrying out your duty as a volunteer fairly, impartially and effectively?</label>
+          	<div style="color:red" id="00N6F00000EgS5uError"></div>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-10 mb-1">
+            <textarea rows="4" class="oppSearch form-control rounded-0" id="00N6F00000EgS5q" name="00N6F00000EgS5q"></textarea>
+          </div>          
+        </div>
+        
+        <br>
+        <div class="row">
+          <div class="col-md-10 mb-1">
+            <label class="txfooter">By submitting this application and by participating as a volunteer, I, the undersigned (and parents of underage volunteers and all accompanying applicants in this form), affirm that I/we have read, understand and agree with the following:</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">1.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I accept full responsibility for the accuracy and completeness of the information and accompanying documents contained herein and understand that any false or misleading information in, or in connection with my/our application, may be cause for rejection / conclusion of voluntary service. As such, I also authorise Care Corner Singapore Ltd and Care Corner Seniors Services (collectively known as “Care Corner”) to confirm the accuracy and completeness of the information by verifying any and all information contained herein;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">2.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">My/our involvement in Care Corner is solely on voluntary basis and shall not involve any form of remunerations, both in monetary terms (e.g. allowance and reimbursement of expenses) as well as in kind (e.g. accommodations and loan of organizational assets), in return for service(s) rendered, unless otherwise stated. My involvement in Care Corner is not intended to create any employment relationship;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">3.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">Employment Pass, Work Permit Holders & Foreign Domestic Workers Only:<br>I affirms that if my voluntary involvement with Care Corner takes place during my working hours, (i) my employer has been informed, (ii) he/she consents to my involvement and will continue to pay me during this time and (iii) I have printed out and retained a copy of this page. If requested by my employer, I agree for Care Corner to provide confirmation of date(s), time(s) and hour(s) that I volunteered;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">4.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I/We understand that I/we may be required to undergo security screening prior to the confirmation and commencement of my/our placement and also periodically during my/our assignment, as to be advised by Care Corner. I/We hereby allow Care Corner to do the necessary to use and disclose my details to relevant government bodies for screening;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">5.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I/We recognise and accept that participation in such activities involve certain amount of risks, both foreseeable and unforeseeable. Whilst all due care is taken by Care Corner to manage and minimise risks, I do undertake to release and discharge Care Corner, its staff, volunteers, beneficiaries, partners, or any other servants or agents from all liabilities, claims, costs, charges and expenses, for any accident, injury, loss or damage (herein collectively referred to as “risk incidents”) (whether directly or indirectly by and/or to myself/other person(s)/other organisation(s)) that may occur in the course of, or as a result of participating in such activities. In the event of any risk incidents, I agree to inform Care Corner and the organisers immediately and assist with any incident inquiry as may be necessary, as determined by Care Corner;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">6.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I/We agree to be subjected to a period of probation, to ensure that there is a match between me and accompanying applicants to my/our volunteer assignment;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">7.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">Care Corner reserves the right to reject an application / change the placement of a volunteer (in consultation with the volunteer), should it deem that there is no fit or if Care Corner evaluates that he/she might be better able to contribute to the care of beneficiaries via other means. Failing which, the services may be concluded;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">8.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I/We will abide by the policies and procedures set forth by Care Corner (including the Code of Volunteer Partnership), which guides the work of the staff and volunteers in their work with the beneficiaries. When in doubt, I/we will refer to the Volunteer Development & Partnership staff or respective staff for clarifications;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">9.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I/We also recognise that, while the work of Care Corner involves a wide range of people from all walks of life, fields of work and faith groups, Care Corner is a Voluntary Welfare Organisation (VWO), guided by Christian values and principles. As such, I/we agree that I/we will respect the various guiding principles, values and Code of Conduct of this organisation;</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">10.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I agree not to expose Care Corner to any civil or criminal proceedings, nor violate or infringe the rights of any third party, nor give rise to any claim whatsoever. In the event that I breach the aforesaid, I undertake to assume all liability in any such claim(s) or proceeding(s); and</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">11.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I/we&nbsp;<label style="font-weight:bold;">allow</label>&nbsp;Care Corner to take, record and use my/our photo, name, likeness, image, voice, interview for its publications, including but not limited to, Annual Reports, Website(s) and other publicity / publication materials, to help Care Corner further its caring work among the community.</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter">12.</label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter">I/We have read, understood and agree to abide and be bound by Care Corner’s Privacy Policy, as posted on the Care Corner Website at <a href="https://bit.ly/CCSPrivacy">https://bit.ly/CCSPrivacy</a> (the "Privacy Policy"). I/We consent to Care Corner's collection and use of my/our Personal Data (as defined in the Privacy Policy) in accordance with the terms of the Privacy Policy.</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter"></label>
+          </div>  
+          <div class="col-md-9 mb-1">
+            <label class="txfooter" style="color:red">For volunteers below 18 years of age, you will be required to obtain the consent of your parent/guardian with their signature on this form (which you can print out later) prior to commencing your volunteer assignment.</label>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter"></label>
+          </div>  
+          <div class="col-md-9 mb-1">
+          	<div class="row">
+				<div class="col-md-6 mb-1">
+					<label class="txfooter" style="font-weight:bold;">Name of Parent/Legal Guardian (as in NRIC):</label>
+				</div>
+				<div class="col-md-3 mb-1">
+					<input type="text" size="20" maxlength="80" class="txfooter" id="00N6F00000EgS6g" name="00N6F00000EgS6g"/>
+				</div>
+			</div>
+          </div>          
+        </div>
+        <div class="row">
+          <div class="col-md-1 mb-1">
+            <label class="txfooter"></label>
+          </div>  
+          <div class="col-md-9 mb-1">
+          	<div class="row">
+				<div class="col-md-6 mb-1">
+					<label class="txfooter" style="font-weight:bold;">NRIC/FIN of Parent/Legal Guardian:</label>
+				</div>
+				<div class="col-md-3 mb-1">
+					<input type="text" size="20" maxlength="80" class="txfooter" id="00N6F00000EgS6f" name="00N6F00000EgS6f"/>
+				</div>
+			</div>
+          </div>          
+        </div>
+        
+        
+        <!-- End of Form Content -->
+		<div class="row">
+			<div class="col-md-12 ">      	
+        		<input type="submit" name="submit" onclick="setCompnayValue();return confirm('Proceed to submit registration. Please ensure you have provided all details including your skills and language.');" />
+    		<div>
+    	</div>
+		</form>
+		     	
+	</div>	
+</div>
+
+  <footer class="my-3 pt-3 text-muted text-center text-small">
+    <ul class="list-inline">
+      <li class="list-inline-item">Follow Our:</li>
+      <li class="list-inline-item"><a href="https://www.instagram.com/carecornersg/?hl=en" target="_"><img src="./SFDC_files/Instagram.jpg" style="width:123px;height:28px" title="Instagram" alt="Instagram"></a></li>
+      <li class="list-inline-item"><a href="https://www.facebook.com/carecornersg" target="_"><img src="./SFDC_files/fb.jpg" style="width:123px;height:28px" title="Facebook" alt="Facebook"></a></li>
+      <li class="list-inline-item" style="float:right"><input type="button" class="btn btn-sm" id="close" value="Close this page" onclick="window.open('', '_self', ''); window.close();" /></li>
+    </ul>
+  </footer>
+</div>
+
+
+</html>

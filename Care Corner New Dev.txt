@@ -11,5 +11,8 @@
 - Export Center data for Teresa to specify Town. 
 
 
+Picklist Value:
 Lead Source - Volunteer Center
-Attendance - add VC Name, Town
+
+New Custom Fields:
+RichText Lead_Conversion_Error

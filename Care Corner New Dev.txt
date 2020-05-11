@@ -16,3 +16,18 @@ Lead Source - Volunteer Center
 
 New Custom Fields:
 RichText Lead_Conversion_Error
+
+
+Github commands. 
+
+1. Generate SSH keys. Add key to Github SSH upload. 
+# cd ~/.ssh
+# ssh-keygen
+
+2. Change/Upload of contents
+# git remote add origin git@github.com:yaojun1970/carecorner.git
+# git status
+
+* add changes to repository from local folder (All changes)
+# git add .
+# git commit -m "descriptions of operation"

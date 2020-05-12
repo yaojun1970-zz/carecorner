@@ -31,3 +31,4 @@ Github commands.
 * add changes to repository from local folder (All changes)
 # git add .
 # git commit -m "descriptions of operation"
+# git push origin master
